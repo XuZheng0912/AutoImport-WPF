@@ -17,9 +17,13 @@ namespace AutoImport_WPF;
 /// </summary>
 public partial class MainWindow : Window
 {
+    private readonly LogWindow _logWindow;
+
     public MainWindow()
     {
         InitializeComponent();
+        _logWindow = new LogWindow();
+        _logWindow.Show();
     }
 
     private void excelFileSelectButtonOnClick(object sender, RoutedEventArgs e)
@@ -31,5 +35,11 @@ public partial class MainWindow : Window
 
         if (openFileDialog.ShowDialog() != true) return;
         var fileName = openFileDialog.FileName;
+        Debug(fileName);
+    }
+
+    private void Debug(string content)
+    {
+        _logWindow.Debug(content);
     }
 }
