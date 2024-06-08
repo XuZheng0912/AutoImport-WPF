@@ -8,6 +8,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Win32;
 
 namespace AutoImport_WPF;
 
@@ -19,5 +20,16 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+    }
+
+    private void excelFileSelectButtonOnClick(object sender, RoutedEventArgs e)
+    {
+        var openFileDialog = new OpenFileDialog
+        {
+            Filter = "Excel Files (*.xlsx;*.xls)|*.xlsx;*.xls"
+        };
+
+        if (openFileDialog.ShowDialog() != true) return;
+        var fileName = openFileDialog.FileName;
     }
 }
