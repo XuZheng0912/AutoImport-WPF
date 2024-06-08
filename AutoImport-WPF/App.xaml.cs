@@ -10,4 +10,3 @@ namespace AutoImport_WPF;
 public partial class App : Application
 {
 }
-
