@@ -1,16 +1,17 @@
 ﻿using System.IO;
 using AutoImport_WPF.domain;
-using NPOI.SS.UserModel;
+using AutoImport_WPF.log;
 using NPOI.XSSF.UserModel;
 
 namespace AutoImport_WPF.service;
 
-public class PoiExcelReadService(Action<string> log) : IExcelReadService
+public class PoiExcelReadService : IExcelReadService
 {
-    private readonly Action<string> _log = log;
+    private static ILogger Logger => LogConfig.Logger;
 
     public List<PhysicalExaminationData> Read(string filePath)
     {
+        Logger.Info("开始读取Excel文件数据");
         var workbook = OpenExcel(filePath);
         var sheet = workbook.GetSheetAt(0);
         List<PhysicalExaminationData> list = [];
@@ -20,6 +21,8 @@ public class PoiExcelReadService(Action<string> log) : IExcelReadService
             list.Add(new PhysicalExaminationData(row));
         }
 
+        Logger.Info("数据读取完成");
+        Logger.Debug($"表格数据读取总计{list.Count}行");
         return list;
     }
 

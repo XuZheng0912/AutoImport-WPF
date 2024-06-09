@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using AutoImport_WPF.domain;
+using AutoImport_WPF.log;
 using AutoImport_WPF.service;
 using Microsoft.Win32;
 
@@ -10,16 +11,25 @@ namespace AutoImport_WPF;
 /// </summary>
 public partial class MainWindow : Window
 {
-    private readonly LogWindow _logWindow;
+    private readonly PoiExcelReadService _excelReadService;
 
-    private readonly IExcelReadService _excelReadService;
+    private static ILogger Logger => LogConfig.Logger;
 
     public MainWindow()
     {
         InitializeComponent();
-        _logWindow = new LogWindow();
-        _logWindow.Show();
-        _excelReadService = new PoiExcelReadService(Debug);
+        var logWindow = new LogWindow();
+        logWindow.Show();
+        LogConfig.Logger = new CommonLogger(content =>
+        {
+            if (!logWindow.IsVisible)
+            {
+                logWindow.Show();
+            }
+
+            logWindow.AddListItem(content);
+        });
+        _excelReadService = new PoiExcelReadService();
     }
 
     private void excelFileSelectButtonOnClick(object sender, RoutedEventArgs e)
@@ -31,17 +41,12 @@ public partial class MainWindow : Window
 
         if (openFileDialog.ShowDialog() != true) return;
         var fileName = openFileDialog.FileName;
-        Debug(fileName);
-        Debug(ReadFromExcel(fileName).Count.ToString());
+        Logger.Debug($"文件路径：{fileName}");
+        ReadFromExcel(fileName);
     }
 
     private List<PhysicalExaminationData> ReadFromExcel(string filePath)
     {
         return _excelReadService.Read(filePath);
-    }
-
-    private void Debug(string content)
-    {
-        _logWindow.Debug(content);
     }
 }
