@@ -65,11 +65,13 @@ public partial class MainWindow
 
     private void UsernameTextBox_OnTextChanged(object sender, TextChangedEventArgs e)
     {
+        // 320922197806044437
         ApplicationContext.Username = UsernameTextBox.Text;
     }
 
     private void PasswordBox_OnPasswordChanged(object sender, RoutedEventArgs e)
     {
+        // xflbh88888888
         ApplicationContext.Password = PasswordBox.Password;
     }
 }
