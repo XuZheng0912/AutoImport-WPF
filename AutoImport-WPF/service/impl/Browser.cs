@@ -6,6 +6,7 @@ public class Browser(IWebDriver webDriver) : IBrowser
 {
     public void Get(string url)
     {
+        webDriver.Manage().Window.Maximize();
         webDriver.Navigate().GoToUrl(url);
     }
 
