@@ -71,7 +71,7 @@ public partial class MainWindow
 
     private void PasswordBox_OnPasswordChanged(object sender, RoutedEventArgs e)
     {
-        // xflbh88888888
+        // bh88888888
         ApplicationContext.Password = PasswordBox.Password;
     }
 }
