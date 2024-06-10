@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Windows;
+using System.Windows.Controls;
 using AutoImport_WPF.context;
 using AutoImport_WPF.log;
 using AutoImport_WPF.service.impl;
@@ -60,5 +61,15 @@ public partial class MainWindow
     {
         var importService = new ImportService();
         importService.Import(ApplicationContext.FileName);
+    }
+
+    private void UsernameTextBox_OnTextChanged(object sender, TextChangedEventArgs e)
+    {
+        ApplicationContext.Username = UsernameTextBox.Text;
+    }
+
+    private void PasswordBox_OnPasswordChanged(object sender, RoutedEventArgs e)
+    {
+        ApplicationContext.Password = PasswordBox.Password;
     }
 }

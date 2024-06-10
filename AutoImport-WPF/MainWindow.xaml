@@ -21,12 +21,14 @@
         <!-- 用户名标签 -->
         <Label Content="账号:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="10" />
         <!-- 用户名输入框 -->
-        <TextBox Name="UsernameTextBox" Grid.Row="0" Grid.Column="1" Margin="10" />
+        <TextBox Name="UsernameTextBox" Grid.Row="0" Grid.Column="1" Margin="10" 
+                 TextChanged="UsernameTextBox_OnTextChanged"/>
 
         <!-- 密码标签 -->
         <Label Content="密码:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="10" />
         <!-- 密码输入框 -->
-        <PasswordBox Name="PasswordBox" Grid.Row="1" Grid.Column="1" Margin="10" />
+        <PasswordBox Name="PasswordBox" Grid.Row="1" Grid.Column="1" Margin="10" 
+                     PasswordChanged="PasswordBox_OnPasswordChanged"/>
 
         <!-- 选择导入文件按钮 -->
         <Button Grid.Row="2" Grid.Column="0" Name="ExcelFileSelectButton"
