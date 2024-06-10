@@ -1,16 +1,14 @@
 ﻿using System.Collections.ObjectModel;
-using System.Windows;
 
 namespace AutoImport_WPF;
 
-public partial class LogWindow : Window
+public partial class LogWindow
 {
-    private ObservableCollection<string> Logs { get; }
+    private ObservableCollection<string> Logs { get; } = [];
 
     public LogWindow()
     {
         InitializeComponent();
-        Logs = new ObservableCollection<string>();
         LogListBox.ItemsSource = Logs;
     }
 

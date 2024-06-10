@@ -1,4 +1,5 @@
-﻿using AutoImport_WPF.domain;
+﻿using AutoImport_WPF.config;
+using AutoImport_WPF.domain;
 
 namespace AutoImport_WPF.service.impl;
 
@@ -6,11 +7,12 @@ public class ImportService : IImportService
 {
     private readonly IExcelReadService _excelReadService = new PoiExcelReadService();
 
-    private readonly IBrowser _browser = new ChromeBrowser();
+    private IBrowser Browser { get; } = new ChromeBrowser();
 
     public void Import(string fileName)
     {
         var physicalExaminationDataList = ReadFromExcel(fileName);
+        Browser.Get(WebConfig.TargetUrl);
         Import(physicalExaminationDataList);
     }
 

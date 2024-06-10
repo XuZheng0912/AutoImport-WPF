@@ -4,17 +4,57 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="自动导入" Height="300" Width="400">
+        Title="自动导入" Height="250" Width="400">
     <Grid>
-        <Button Name="ExcelFileSelectButton"
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- 用户名标签 -->
+        <Label Content="账号:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="10" />
+        <!-- 用户名输入框 -->
+        <TextBox Name="UsernameTextBox" Grid.Row="0" Grid.Column="1" Margin="10" />
+
+        <!-- 密码标签 -->
+        <Label Content="密码:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="10" />
+        <!-- 密码输入框 -->
+        <PasswordBox Name="PasswordBox" Grid.Row="1" Grid.Column="1" Margin="10" />
+
+        <!-- 选择导入文件按钮 -->
+        <Button Grid.Row="2" Grid.Column="0" Name="ExcelFileSelectButton"
+                Click="ExcelFileSelectButton_OnClick"
                 Content="选择导入文件"
-                Width="100"
-                Height="45"
-                Click="excelFileSelectButtonOnClick" />
-        <Button Name="ImportButton"
+                Width="120"
+                Height="30"
+                VerticalAlignment="Center"
+                Margin="10" />
+
+        <!-- 显示所选文件名称的只读文本框 -->
+        <TextBox Grid.Row="2" Grid.Column="1" Name="SelectedFileNameTextBox"
+                 Margin="10" IsReadOnly="True" Height="30" VerticalAlignment="Center" />
+
+        <!-- 开始导入按钮 -->
+        <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Name="ImportButton"
+                Click="ImportButton_OnClick"
                 Content="开始导入"
-                Width="100"
-                Height="45"
-                Click="ImportButtonOnClick" />
+                Width="380"
+                Height="30"
+                Margin="10" />
+
+        <!-- 开始导入按钮 -->
+        <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Name="RefreshButton"
+                Click="RefreshButton_OnClick"
+                Content="刷新程序配置环境状态"
+                Width="380"
+                Height="30"
+                Margin="10" />
     </Grid>
 </Window>
