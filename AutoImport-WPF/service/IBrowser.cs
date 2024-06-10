@@ -6,7 +6,7 @@ public interface IBrowser
 {
     void Get(string url);
 
-    void Click(string name);
+    void Click(By by);
 
-    void SendKeys();
+    void SendKeys(By by, string keys);
 }

@@ -8,17 +8,16 @@ public class Browser(IWebDriver webDriver) : IBrowser
     {
         webDriver.Manage().Window.Maximize();
         webDriver.Navigate().GoToUrl(url);
-        System.Threading.Thread.Sleep(10000);
     }
 
-    public void Click(string name)
+    public void Click(By by)
     {
-        webDriver.FindElement(By.Name(name))
+        webDriver.FindElement(by)
             .Click();
     }
 
-    public void SendKeys()
+    public void SendKeys(By by, string keys)
     {
-        throw new NotImplementedException();
+        webDriver.FindElement(by).SendKeys(keys);
     }
 }
