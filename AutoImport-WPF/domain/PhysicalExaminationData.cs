@@ -4,9 +4,31 @@ namespace AutoImport_WPF.domain;
 
 public class PhysicalExaminationData(IRow row)
 {
-    private readonly IRow _row = row;
+    public string Id => GetCell(6);
 
-    public readonly string Id = row.GetCell(6).StringCellValue;
-    
-    
+
+    public bool IsElder()
+    {
+        return !IsCellNullOrWhiteSpace(7);
+    }
+
+    public bool IsHypertension()
+    {
+        return !IsCellNullOrWhiteSpace(8);
+    }
+
+    public bool IsDiabetes()
+    {
+        return !IsCellNullOrWhiteSpace(9);
+    }
+
+    private bool IsCellNullOrWhiteSpace(int col)
+    {
+        return string.IsNullOrWhiteSpace(GetCell(col));
+    }
+
+    private string GetCell(int col)
+    {
+        return row.GetCell(col).StringCellValue;
+    }
 }

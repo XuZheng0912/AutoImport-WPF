@@ -3,15 +3,18 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:AutoImport_WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="自动导入" Height="300" Width="400">
     <Grid>
         <Button Name="ExcelFileSelectButton"
                 Content="选择导入文件"
                 Width="100"
                 Height="45"
-                Click="excelFileSelectButtonOnClick">
-        </Button>
+                Click="excelFileSelectButtonOnClick" />
+        <Button Name="ImportButton"
+                Content="开始导入"
+                Width="100"
+                Height="45"
+                Click="ImportButtonOnClick" />
     </Grid>
 </Window>

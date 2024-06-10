@@ -3,7 +3,7 @@ using AutoImport_WPF.domain;
 using AutoImport_WPF.log;
 using NPOI.XSSF.UserModel;
 
-namespace AutoImport_WPF.service;
+namespace AutoImport_WPF.service.impl;
 
 public class PoiExcelReadService : IExcelReadService
 {
