@@ -5,7 +5,7 @@ using WebDriverManager.DriverConfigs.Impl;
 
 namespace AutoImport_WPF.config;
 
-public class Environment
+public static class Environment
 {
     private static ILogger Logger => LogConfig.Logger;
 

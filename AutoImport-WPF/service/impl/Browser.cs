@@ -8,6 +8,7 @@ public class Browser(IWebDriver webDriver) : IBrowser
     {
         webDriver.Manage().Window.Maximize();
         webDriver.Navigate().GoToUrl(url);
+        System.Threading.Thread.Sleep(10000);
     }
 
     public void Click(string name)
