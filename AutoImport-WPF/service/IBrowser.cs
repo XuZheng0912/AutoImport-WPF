@@ -9,4 +9,8 @@ public interface IBrowser
     void Click(By by);
 
     void SendKeys(By by, string keys);
+
+    void Wait(By by);
+
+    void Clear(By by);
 }
