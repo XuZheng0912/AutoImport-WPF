@@ -1,6 +1,6 @@
 ﻿using AutoImport_WPF.config;
 
-namespace AutoImport_WPF.log;
+namespace AutoImport_WPF.log.logger;
 
 public class CommonLogger(Action<string> log) : ILogger
 {
