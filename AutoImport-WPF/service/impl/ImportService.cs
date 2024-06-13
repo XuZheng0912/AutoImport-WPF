@@ -8,20 +8,28 @@ namespace AutoImport_WPF.service.impl;
 
 public class ImportService : IImportService
 {
-    private readonly IExcelReadService _excelReadService = new PoiExcelReadService();
+    private readonly IExcelReadService _excelReadService;
 
     private IBrowser Browser { get; } = new ChromeBrowser();
 
     private static ILogger Logger => LogConfig.Logger;
 
+    public void ImportHealthForm(string fileName)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void ImportContract(string fileName)
+    {
+        throw new NotImplementedException();
+    }
+
     public void Import(string fileName)
     {
-        var physicalExaminationDataList = ReadFromExcel(fileName);
         OpenWebsite();
         Login();
         SwitchToPhysicalExam();
         SetQueryLimitId();
-        Import(physicalExaminationDataList);
     }
 
     private void SetQueryLimitId()
@@ -81,25 +89,5 @@ public class ImportService : IImportService
         Thread.Sleep(500);
         Browser.Click(By.XPath("//li[text()='责任医生']//parent::ul"));
         Browser.Click(By.Id("logon"));
-    }
-
-    public void Import(List<PhysicalExaminationData> dataList)
-    {
-        foreach (var physicalExaminationData in dataList)
-        {
-            Import(physicalExaminationData);
-        }
-    }
-
-    private void Import(PhysicalExaminationData data)
-    {
-        var idLimitInput = By.XPath("");
-        Browser.Clear(idLimitInput);
-        Browser.SendKeys(idLimitInput, data.Id);
-    }
-
-    private List<PhysicalExaminationData> ReadFromExcel(string fileName)
-    {
-        return _excelReadService.Read(fileName);
     }
 }

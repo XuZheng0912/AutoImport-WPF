@@ -4,5 +4,5 @@ namespace AutoImport_WPF.service;
 
 public interface IExcelReadService
 {
-    List<PhysicalExaminationData> Read(string filePath);
+    List<string> Read(string filePath);
 }

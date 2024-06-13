@@ -1,10 +1,8 @@
-﻿using AutoImport_WPF.domain;
-
-namespace AutoImport_WPF.service;
+﻿namespace AutoImport_WPF.service;
 
 public interface IImportService
 {
-    void Import(string fileName);
+    void ImportHealthForm(string fileName);
 
-    void Import(List<PhysicalExaminationData> data);
+    void ImportContract(string fileName);
 }

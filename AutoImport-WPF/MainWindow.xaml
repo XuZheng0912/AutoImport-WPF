@@ -4,9 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="自动导入" Height="250" Width="400">
+        Title="自动导入" Height="400" Width="500">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -21,14 +22,14 @@
         <!-- 用户名标签 -->
         <Label Content="账号:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="10" />
         <!-- 用户名输入框 -->
-        <TextBox Name="UsernameTextBox" Grid.Row="0" Grid.Column="1" Margin="10" 
-                 TextChanged="UsernameTextBox_OnTextChanged"/>
+        <TextBox Name="UsernameTextBox" Grid.Row="0" Grid.Column="1" Margin="10"
+                 TextChanged="UsernameTextBox_OnTextChanged" />
 
         <!-- 密码标签 -->
         <Label Content="密码:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="10" />
         <!-- 密码输入框 -->
-        <PasswordBox Name="PasswordBox" Grid.Row="1" Grid.Column="1" Margin="10" 
-                     PasswordChanged="PasswordBox_OnPasswordChanged"/>
+        <PasswordBox Name="PasswordBox" Grid.Row="1" Grid.Column="1" Margin="10"
+                     PasswordChanged="PasswordBox_OnPasswordChanged" />
 
         <!-- 选择导入文件按钮 -->
         <Button Grid.Row="2" Grid.Column="0" Name="ExcelFileSelectButton"
@@ -43,16 +44,23 @@
         <TextBox Grid.Row="2" Grid.Column="1" Name="SelectedFileNameTextBox"
                  Margin="10" IsReadOnly="True" Height="30" VerticalAlignment="Center" />
 
-        <!-- 开始导入按钮 -->
-        <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Name="ImportButton"
-                Click="ImportButton_OnClick"
-                Content="开始导入"
+        <!-- 导入体检表 -->
+        <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Name="ImportHealthFormButton"
+                Click="ImportHealthFormButton_OnClick"
+                Content="导入体检表"
+                Width="380"
+                Height="30"
+                Margin="10" />
+
+        <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Name="ImportContractButton"
+                Click="ImportContractButton_OnClick"
+                Content="导入签约服务"
                 Width="380"
                 Height="30"
                 Margin="10" />
 
         <!-- 开始导入按钮 -->
-        <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Name="RefreshButton"
+        <Button Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Name="RefreshButton"
                 Click="RefreshButton_OnClick"
                 Content="刷新程序配置环境状态"
                 Width="380"

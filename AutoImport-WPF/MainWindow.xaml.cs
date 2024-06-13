@@ -74,12 +74,6 @@ public partial class MainWindow
         }
     }
 
-    private void ImportButton_OnClick(object sender, RoutedEventArgs e)
-    {
-        var importService = new ImportService();
-        importService.Import(ApplicationContext.FileName);
-    }
-
     private void UsernameTextBox_OnTextChanged(object sender, TextChangedEventArgs e)
     {
         // 320922197806044437
@@ -94,5 +88,16 @@ public partial class MainWindow
         var password = PasswordBox.Password;
         ApplicationContext.Password = password;
         UserConfig.SavePassword(password);
+    }
+
+    private void ImportContractButton_OnClick(object sender, RoutedEventArgs e)
+    {
+        throw new NotImplementedException();
+    }
+
+    private void ImportHealthFormButton_OnClick(object sender, RoutedEventArgs e)
+    {
+        var importService = new ImportService();
+        importService.Import(ApplicationContext.FileName);
     }
 }
