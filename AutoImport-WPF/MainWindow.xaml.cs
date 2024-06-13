@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using AutoImport_WPF.config;
 using AutoImport_WPF.context;
 using AutoImport_WPF.log;
 using AutoImport_WPF.service.impl;
@@ -23,6 +24,7 @@ public partial class MainWindow
         logWindow.Show();
         LogConfig.Logger = new CommonLogger(content => logWindow.AddListItem(content));
         InitEnvironment();
+        SetRememberUserConfig();
     }
 
     private void ExcelFileSelectButton_OnClick(object sender, RoutedEventArgs e)
@@ -39,6 +41,20 @@ public partial class MainWindow
         SelectedFileNameTextBox.Text = Path.GetFileName(fileName);
     }
 
+    private void SetRememberUserConfig()
+    {
+        var username = UserConfig.GetUsername();
+        if (username != null)
+        {
+            UsernameTextBox.Text = username;
+            ApplicationContext.Username = username;
+        }
+
+        var password = UserConfig.GetPassword();
+        if (password == null) return;
+        PasswordBox.Password = password;
+        ApplicationContext.Password = password;
+    }
 
     private void RefreshButton_OnClick(object sender, RoutedEventArgs e)
     {
@@ -66,12 +82,16 @@ public partial class MainWindow
     private void UsernameTextBox_OnTextChanged(object sender, TextChangedEventArgs e)
     {
         // 320922197806044437
-        ApplicationContext.Username = UsernameTextBox.Text;
+        var username = UsernameTextBox.Text;
+        ApplicationContext.Username = username;
+        UserConfig.SaveUsername(username);
     }
 
     private void PasswordBox_OnPasswordChanged(object sender, RoutedEventArgs e)
     {
         // bh88888888
-        ApplicationContext.Password = PasswordBox.Password;
+        var password = PasswordBox.Password;
+        ApplicationContext.Password = password;
+        UserConfig.SavePassword(password);
     }
 }
