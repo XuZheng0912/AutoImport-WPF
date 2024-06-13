@@ -24,7 +24,7 @@ public class Browser(IWebDriver webDriver) : IBrowser
                 driver.FindElement(by);
                 return true;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 Logger.Debug($"查找{by}元素失败，正在重新查找");
                 return false;
