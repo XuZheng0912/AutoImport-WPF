@@ -1,4 +1,5 @@
 ﻿using AutoImport_WPF.config;
+using AutoImport_WPF.log.logger;
 
 namespace AutoImport_WPF.log;
 

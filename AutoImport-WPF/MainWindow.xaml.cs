@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using AutoImport_WPF.config;
 using AutoImport_WPF.context;
 using AutoImport_WPF.log;
+using AutoImport_WPF.log.logger;
 using AutoImport_WPF.service.impl;
 using Microsoft.Win32;
 using Environment = AutoImport_WPF.config.Environment;

@@ -1,3 +1,3 @@
-﻿namespace AutoImport_WPF.log;
+﻿namespace AutoImport_WPF.log.logger;
 
 public class ConsoleLogger() : CommonLogger(Console.WriteLine);
