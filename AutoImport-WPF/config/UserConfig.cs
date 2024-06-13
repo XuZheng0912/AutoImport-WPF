@@ -1,4 +1,5 @@
 ﻿using System.Configuration;
+using AutoImport_WPF.log;
 
 namespace AutoImport_WPF.config;
 
@@ -8,6 +9,7 @@ public static class UserConfig
 
     private const string PasswordKey = "password";
 
+    private static ILogger Logger => LogConfig.Logger;
 
     public static void SaveUsername(string username)
     {
@@ -31,11 +33,13 @@ public static class UserConfig
 
     private static string? GetSetting(string setting)
     {
+        Logger.Debug($"获取appSetting:{setting}");
         return ConfigurationManager.AppSettings[setting];
     }
 
     private static void SaveSetting(string settingName, string settingValue)
     {
+        Logger.Debug($"保存appSetting:{settingName}-{settingValue}");
         var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
         if (ConfigurationManager.AppSettings[settingName] != null)
         {
