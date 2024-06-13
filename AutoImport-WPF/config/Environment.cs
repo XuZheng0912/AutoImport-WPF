@@ -16,6 +16,7 @@ public static class Environment
 
     private static bool TestNetwork()
     {
+        Logger.Debug("正在初始化网络环境配置");
         using var client = new HttpClient();
         try
         {
@@ -36,10 +37,11 @@ public static class Environment
 
     private static bool InitWebDriver()
     {
+        Logger.Debug("正在初始化Chrome Driver");
         try
         {
             new DriverManager().SetUpDriver(new ChromeConfig());
-            Logger.Info("Chrome Driver初始化成功");
+            Logger.Debug("Chrome Driver初始化成功");
             return true;
         }
         catch (Exception e)
