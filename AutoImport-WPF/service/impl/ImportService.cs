@@ -1,6 +1,7 @@
 ﻿using AutoImport_WPF.config;
 using AutoImport_WPF.context;
 using AutoImport_WPF.domain;
+using AutoImport_WPF.excel;
 using AutoImport_WPF.log;
 using OpenQA.Selenium;
 
@@ -21,7 +22,13 @@ public class ImportService : IImportService
 
     public void ImportContract(string fileName)
     {
-        throw new NotImplementedException();
+        var contractDataList = ReadContractDataFromExcelFile(fileName);
+    }
+
+    private static List<ContractData> ReadContractDataFromExcelFile(string fileName)
+    {
+        IExcelListRead<ContractData> reader = new ContractExcelReader();
+        return reader.Read(fileName: fileName);
     }
 
     public void Import(string fileName)
