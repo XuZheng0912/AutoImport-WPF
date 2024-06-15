@@ -1,5 +1,4 @@
 ﻿using AutoImport_WPF.import.impl;
-using AutoImport_WPF.log;
 
 namespace AutoImport_WPF.service.impl;
 

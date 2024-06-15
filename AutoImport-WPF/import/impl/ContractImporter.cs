@@ -71,14 +71,15 @@ public class ContractImporter : IFileImport, IListDataImport<ContractData>
             "/html/body/div[1]/div/div/div[2]/table/tbody/tr[1]/td[3]/div/div[2]/div/div/div[2]/div[1]/div/div/div/div[2]/div/div/div/div/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div/div[1]/div/table/tbody/tr/td[1]/table/tbody/tr/td[1]/div/input"
         ];
         Click(limitImgPossibleXpath);
-        List<string> idLimitPossibleXpath =
-        [
-            "/html/body/div[12]/div/div[6]",
-            "/html/body/div[8]/div/div[6]",
-            "/html/body/div[17]/div/div[6]",
-            "/html/body/div[8]/div/div[7]"
-        ];
-        Click(idLimitPossibleXpath);
+        // List<string> idLimitPossibleXpath =
+        // [
+        //     "/html/body/div[12]/div/div[6]",
+        //     "/html/body/div[8]/div/div[6]",
+        //     "/html/body/div[17]/div/div[6]",
+        //     "/html/body/div[8]/div/div[7]"
+        // ];
+        Browser.Click(By.XPath("//div[text()='身份证号码']"));
+        // Click(idLimitPossibleXpath);
     }
 
     private static void Click(List<string> possibleXpath)
