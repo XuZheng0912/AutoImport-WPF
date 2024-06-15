@@ -12,6 +12,7 @@ public static class Environment
 
     public static bool Init()
     {
+        FindBrowser();
         return InitWebDriver() && TestNetwork();
     }
 
