@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.ComponentModel;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using AutoImport_WPF.config;
@@ -99,5 +100,10 @@ public partial class MainWindow
     {
         var importService = new ImportService();
         importService.Import(ApplicationContext.FileName);
+    }
+
+    private void MainWindow_OnClosing(object? sender, CancelEventArgs e)
+    {
+        Application.Current.Shutdown();
     }
 }
