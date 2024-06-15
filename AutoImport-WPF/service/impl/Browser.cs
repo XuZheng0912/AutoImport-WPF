@@ -101,7 +101,19 @@ public class Browser(IWebDriver webDriver) : IBrowser
 
     public void ClickByText(string htmlText)
     {
-        throw new NotImplementedException();
+        var webElements = webDriver.FindElements(By.XPath($"//button[text()='{htmlText}']"));
+        foreach (var webElement in webElements)
+        {
+            try
+            {
+                webElement.Click();
+                return;
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
+        }
     }
 
     public void SendKeys(By by, string keys)

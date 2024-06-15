@@ -138,8 +138,8 @@ public class ContractImporter : IFileImport, IListDataImport<ContractData>
         ];
         Browser.ClickByPossibleXpathList(checkBoxXpathList);
         Thread.Sleep(500);
-        Browser.ClickByXpath("//button[text()='保存(F1)']");
-        Browser.ClickByXpath("//button[text()='是']");
+        Browser.ClickByText("保存(F1)");
+        Browser.ClickByText("是");
         Browser.ClickById("CLOSE");
     }
 
