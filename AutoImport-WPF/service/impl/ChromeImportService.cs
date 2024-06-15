@@ -1,4 +1,5 @@
-﻿using AutoImport_WPF.config;
+﻿using AutoImport_WPF.browser;
+using AutoImport_WPF.config;
 using AutoImport_WPF.context;
 using AutoImport_WPF.domain;
 using AutoImport_WPF.excel;
@@ -7,10 +8,8 @@ using OpenQA.Selenium;
 
 namespace AutoImport_WPF.service.impl;
 
-public class ImportService : IImportService
+public class ChromeImportService : IImportService
 {
-    private readonly IExcelReadService _excelReadService;
-
     private IBrowser Browser { get; } = new ChromeBrowser();
 
     private static ILogger Logger => LogConfig.Logger;
@@ -24,6 +23,7 @@ public class ImportService : IImportService
     {
         var contractDataList = ReadContractDataFromExcelFile(fileName);
     }
+
 
     private static List<ContractData> ReadContractDataFromExcelFile(string fileName)
     {
@@ -55,7 +55,7 @@ public class ImportService : IImportService
         ];
         Click(idLimitPossibleXpath);
     }
-
+    
     private void Click(List<string> possibleXpath)
     {
         foreach (var xpath in possibleXpath)
@@ -70,7 +70,7 @@ public class ImportService : IImportService
             }
         }
     }
-
+    
     private void SwitchToPhysicalExam()
     {
         var hrIdBy = By.Id("HR");

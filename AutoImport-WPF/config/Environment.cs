@@ -1,5 +1,6 @@
 ﻿using System.Net.Http;
 using AutoImport_WPF.log;
+using Microsoft.Win32;
 using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
 
@@ -12,6 +13,35 @@ public static class Environment
     public static bool Init()
     {
         return InitWebDriver() && TestNetwork();
+    }
+
+    private static void FindBrowser()
+    {
+        string[] browserKeys =
+        [
+            @"SOFTWARE\Clients\StartMenuInternet",
+            @"SOFTWARE\WOW6432Node\Clients\StartMenuInternet"
+        ];
+        foreach (string browserKey in browserKeys)
+        {
+            using (RegistryKey key = Registry.LocalMachine.OpenSubKey(browserKey))
+            {
+                if (key != null)
+                {
+                    foreach (string subkeyName in key.GetSubKeyNames())
+                    {
+                        using (RegistryKey subkey = key.OpenSubKey(subkeyName))
+                        {
+                            if (subkey != null)
+                            {
+                                string browserName = (string)subkey.GetValue(null);
+                                Logger.Debug($"{browserName} is installed.");
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private static bool TestNetwork()

@@ -1,4 +1,5 @@
-﻿using AutoImport_WPF.log;
+﻿using AutoImport_WPF.browser;
+using AutoImport_WPF.log;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 
@@ -9,6 +10,11 @@ public class Browser(IWebDriver webDriver) : IBrowser
     private static ILogger Logger => LogConfig.Logger;
 
     private readonly WebDriverWait _wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(1));
+
+    public void ClickById(string id)
+    {
+        throw new NotImplementedException();
+    }
 
     public void Clear(By by)
     {

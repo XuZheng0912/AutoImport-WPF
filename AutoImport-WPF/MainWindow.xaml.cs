@@ -6,6 +6,7 @@ using AutoImport_WPF.config;
 using AutoImport_WPF.context;
 using AutoImport_WPF.log;
 using AutoImport_WPF.log.logger;
+using AutoImport_WPF.service;
 using AutoImport_WPF.service.impl;
 using Microsoft.Win32;
 using Environment = AutoImport_WPF.config.Environment;
@@ -18,6 +19,8 @@ namespace AutoImport_WPF;
 public partial class MainWindow
 {
     private static ILogger Logger => LogConfig.Logger;
+
+    private IImportService ImportService { get; } = new ChromeImportService();
 
     public MainWindow()
     {
@@ -93,12 +96,14 @@ public partial class MainWindow
 
     private void ImportContractButton_OnClick(object sender, RoutedEventArgs e)
     {
-        throw new NotImplementedException();
+        Logger.Info("开始导入签约服务");
+        ImportService.ImportContract(ApplicationContext.FileName);
+        Logger.Info("导入签约服务结束");
     }
 
     private void ImportHealthFormButton_OnClick(object sender, RoutedEventArgs e)
     {
-        var importService = new ImportService();
+        var importService = new ChromeImportService();
         importService.Import(ApplicationContext.FileName);
     }
 
