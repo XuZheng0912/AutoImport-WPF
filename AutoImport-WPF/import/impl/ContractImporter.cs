@@ -121,6 +121,9 @@ public class ContractImporter : IFileImport, IListDataImport<ContractData>
         const string searchResultXpath =
             "/html/body/div[1]/div/div/div[2]/table/tbody/tr[1]/td[3]/div/div[2]/div/div[1]/div[2]/div[1]/div/div/div/div[2]/div/div/div/div/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div/div[2]/div/div[1]/div[2]/div";
         Browser.DoubleClickByXpath(searchResultXpath);
+        Browser.ClickByXpath("//button[text()='保存(F1)']");
+        Browser.ClickByXpath("//button[text()='确定']");
+        Browser.ClickByXpath("/html/body/div[10]/div[2]/div[1]/div/div/div/div/div/div/div[2]/div[2]/div/div/div/div/ul/div/li[2]/div/img[1]");
     }
 
     private static List<ContractData> ReadFromExcelFile(string fileName)
