@@ -12,8 +12,8 @@ public class ExcelReader : IExcelRead
         using var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
         return Path.GetExtension(filePath) switch
         {
-            "xls" => new HSSFWorkbook(fileStream),
-            "xlsx" => new XSSFWorkbook(fileStream),
+            ".xls" => new HSSFWorkbook(fileStream),
+            ".xlsx" => new XSSFWorkbook(fileStream),
             _ => throw new FormatException("文件格式错误，只能读取xls或xlsx文件")
         };
     }
