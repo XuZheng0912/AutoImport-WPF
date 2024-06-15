@@ -99,6 +99,11 @@ public class Browser(IWebDriver webDriver) : IBrowser
         WaitFindElement(by).Click();
     }
 
+    public void ClickByText(string htmlText)
+    {
+        throw new NotImplementedException();
+    }
+
     public void SendKeys(By by, string keys)
     {
         WaitFindElement(by).SendKeys(keys);

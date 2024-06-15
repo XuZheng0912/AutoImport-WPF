@@ -137,6 +137,7 @@ public class ContractImporter : IFileImport, IListDataImport<ContractData>
             "/html/body/div[11]/div[2]/div[1]/div/div/div/div/div/div/div[3]/div[2]/div/div[4]/div[2]/div[1]/div/div/div/div/div/div/div[2]/div/div/div/div[2]/div[1]/div/div/div/div[2]/div/div/div/div[2]/div[1]/div/div/div[2]/div/div[1]/div[1]/div[1]/div/table/thead/tr/td[1]/div/div"
         ];
         Browser.ClickByPossibleXpathList(checkBoxXpathList);
+        Thread.Sleep(500);
         Browser.ClickByXpath("//button[text()='保存(F1)']");
         Browser.ClickByXpath("//button[text()='是']");
         Browser.ClickById("CLOSE");
@@ -150,17 +151,10 @@ public class ContractImporter : IFileImport, IListDataImport<ContractData>
 
     private static List<Action> SelectTypeActions(string[] types)
     {
-        if (types.Length == 0)
-        {
-            return
-            [
-                () => { Browser.ClickByXpath("/html/body/div[30]/div/div[1]/div"); }
-            ];
-        }
-
         return types.Select<string, Action>(type => type switch
             {
-                not null when string.IsNullOrWhiteSpace(type) => () => { },
+                not null when string.IsNullOrWhiteSpace(type) => () =>
+                    Browser.ClickByXpath("/html/body/div[30]/div/div[1]/div"),
                 "老年人" => () => Browser.ClickByXpath("/html/body/div[30]/div/div[2]/div"),
                 "0-6岁儿童" => () => Browser.ClickByXpath("/html/body/div[30]/div/div[3]/div"),
                 "建档立卡" => () => Browser.ClickByXpath("/html/body/div[30]/div/div[16]/div"),

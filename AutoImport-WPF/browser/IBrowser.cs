@@ -12,6 +12,8 @@ public interface IBrowser
 
     void ClickByXpath(string xpath);
 
+    void ClickByText(string htmlText);
+
     void ClickByPossibleXpathList(List<string> possibleXpathList);
 
     void DoubleClick(By by);
