@@ -1,38 +1,20 @@
 ﻿using System.IO;
-using AutoImport_WPF.domain;
-using AutoImport_WPF.log;
+using NPOI.HSSF.UserModel;
+using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
 
 namespace AutoImport_WPF.excel;
 
-public abstract class ExcelReader<T> : IExcelListRead<T>
+public class ExcelReader : IExcelRead
 {
-    private static ILogger Logger => LogConfig.Logger;
-
-    public List<T> Read(string fileName)
-    {
-        {
-            Logger.Info("开始读取Excel文件数据");
-            var workbook = OpenExcel(fileName);
-            var sheet = workbook.GetSheetAt(0);
-            List<T> list = [];
-            for (var rowNum = 1; rowNum < sheet.LastRowNum; rowNum++)
-            {
-                var row = sheet.GetRow(rowNum);
-                list.Add(Build(new ExcelRow(row: row)));
-            }
-
-            Logger.Info("数据读取完成");
-            Logger.Debug($"表格数据读取总计{list.Count}行");
-            return list;
-        }
-    }
-
-    public abstract T Build(ExcelRow row);
-
-    private static XSSFWorkbook OpenExcel(string filePath)
+    public IWorkbook Read(string filePath)
     {
         using var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
-        return new XSSFWorkbook(fileStream);
+        return Path.GetExtension(filePath) switch
+        {
+            "xls" => new HSSFWorkbook(fileStream),
+            "xlsx" => new XSSFWorkbook(fileStream),
+            _ => throw new FormatException("文件格式错误，只能读取xls或xlsx文件")
+        };
     }
 }

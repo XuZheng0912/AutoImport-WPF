@@ -2,9 +2,9 @@
 
 namespace AutoImport_WPF.excel;
 
-public class ContractExcelReader : ExcelReader<ContractData>
+public class ContractExcelReader : ExcelDataReader<ContractData>
 {
-    public override ContractData Build(ExcelRow row)
+    protected override ContractData Build(ExcelRow row)
     {
         return new ContractData(row);
     }

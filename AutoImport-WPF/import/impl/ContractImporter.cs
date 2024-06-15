@@ -75,7 +75,8 @@ public class ContractImporter : IFileImport, IListDataImport<ContractData>
         [
             "/html/body/div[12]/div/div[6]",
             "/html/body/div[8]/div/div[6]",
-            "/html/body/div[17]/div/div[6]"
+            "/html/body/div[17]/div/div[6]",
+            "/html/body/div[8]/div/div[7]"
         ];
         Click(idLimitPossibleXpath);
     }
