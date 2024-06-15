@@ -65,20 +65,31 @@ public class ContractImporter : IFileImport, IListDataImport<ContractData>
 
     private static void SetQueryLimitId()
     {
-        List<string> limitImgPossibleXpath =
+        List<string> limitImgPossibleXpathList =
         [
-            "/html/body/div[1]/div/div/div[2]/table/tbody/tr[1]/td[3]/div/div[2]/div/div[1]/div[2]/div[1]/div/div/div/div[2]/div/div/div/div/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div/div[1]/div/table/tbody/tr/td[1]/table/tbody/tr/td[1]/div/input",
-            "/html/body/div[1]/div/div/div[2]/table/tbody/tr[1]/td[3]/div/div[2]/div/div/div[2]/div[1]/div/div/div/div[2]/div/div/div/div/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div/div[1]/div/table/tbody/tr/td[1]/table/tbody/tr/td[1]/div/input"
+            "/html/body/div[1]/div/div/div[2]/table/tbody/tr[1]/td[3]/div/div[2]/div/div[1]/div[2]/div[1]/div/div/div/div[2]/div/div/div/div/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div/div[1]/div/table/tbody/tr/td[1]/table/tbody/tr/td[1]/div/img",
+            "/html/body/div[1]/div/div/div[2]/table/tbody/tr[1]/td[3]/div/div[2]/div/div/div[2]/div[1]/div/div/div/div[2]/div/div/div/div/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div/div[1]/div/table/tbody/tr/td[1]/table/tbody/tr/td[1]/div/img"
         ];
-        Click(limitImgPossibleXpath);
-        // List<string> idLimitPossibleXpath =
-        // [
-        //     "/html/body/div[12]/div/div[6]",
-        //     "/html/body/div[8]/div/div[6]",
-        //     "/html/body/div[17]/div/div[6]",
-        //     "/html/body/div[8]/div/div[7]"
-        // ];
-        Browser.Click(By.XPath("//div[text()='身份证号码']"));
+        foreach (var limitImgPossibleXpath in limitImgPossibleXpathList)
+        {
+            try
+            {
+                Browser.ClickByXpath(limitImgPossibleXpath);
+                break;
+            }
+            catch (Exception)
+            {
+                Logger.Debug("正在查找条件选择框");
+            }
+        }
+
+        List<string> idLimitPossibleXpathList =
+        [
+            "/html/body/div[12]/div/div[6]",
+            "/html/body/div[17]/div/div[6]",
+            "/html/body/div[8]/div/div[7]"
+        ];
+        
         // Click(idLimitPossibleXpath);
     }
 
@@ -89,6 +100,7 @@ public class ContractImporter : IFileImport, IListDataImport<ContractData>
             try
             {
                 Browser.Click(By.XPath(xpath));
+                return;
             }
             catch (Exception)
             {

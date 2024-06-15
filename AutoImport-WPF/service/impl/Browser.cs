@@ -16,9 +16,37 @@ public class Browser(IWebDriver webDriver) : IBrowser
         webDriver.Quit();
     }
 
+    public void ClickByXpath(string xpath)
+    {
+        WaitThenClick(By.XPath(xpath));
+    }
+
     public void ClickById(string id)
     {
-        throw new NotImplementedException();
+        WaitThenClick(By.Id(id));
+    }
+
+    private void WaitThenClick(By by)
+    {
+        WaitFindElement(by).Click();
+    }
+
+    private IWebElement WaitFindElement(By by)
+    {
+        _wait.Until(driver =>
+        {
+            try
+            {
+                driver.FindElement(by);
+                return true;
+            }
+            catch (Exception)
+            {
+                Logger.Debug($"正在查找{by}元素");
+                return false;
+            }
+        });
+        return webDriver.FindElement(by);
     }
 
     public void Clear(By by)
@@ -38,6 +66,28 @@ public class Browser(IWebDriver webDriver) : IBrowser
             catch (Exception)
             {
                 Logger.Debug($"查找{by}元素失败，正在重新查找");
+                return false;
+            }
+        });
+    }
+
+    public void Wait(List<By> possibleBy)
+    {
+        _wait.Until(driver =>
+        {
+            try
+            {
+                foreach (var by in possibleBy)
+                {
+                    driver.FindElement(by);
+                    return true;
+                }
+
+                return false;
+            }
+            catch (Exception)
+            {
+                Logger.Debug($"查找{possibleBy[0]}元素失败，正在重新查找");
                 return false;
             }
         });

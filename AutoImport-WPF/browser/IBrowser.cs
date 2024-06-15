@@ -10,9 +10,13 @@ public interface IBrowser
 
     void ClickById(string id);
 
+    void ClickByXpath(string xpath);
+
     void SendKeys(By by, string keys);
 
     void Wait(By by);
+
+    void Wait(List<By> possibleBy);
 
     void Clear(By by);
 
