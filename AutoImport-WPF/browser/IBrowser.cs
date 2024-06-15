@@ -24,5 +24,7 @@ public interface IBrowser
 
     void Clear(By by);
 
+    void ClearByName(string name);
+
     void Close();
 }

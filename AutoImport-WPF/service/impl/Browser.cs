@@ -64,12 +64,7 @@ public class Browser(IWebDriver webDriver) : IBrowser
         });
         return webDriver.FindElement(by);
     }
-
-    public void Clear(By by)
-    {
-        webDriver.FindElement(by).Clear();
-    }
-
+    
     public void Wait(By by)
     {
         _wait.Until(driver =>
@@ -129,5 +124,15 @@ public class Browser(IWebDriver webDriver) : IBrowser
     public void SendKeysByName(string name, string keys)
     {
         SendKeys(By.Name(name), keys);
+    }
+    
+    public void Clear(By by)
+    {
+        webDriver.FindElement(by).Clear();
+    }
+
+    public void ClearByName(string name)
+    {
+        Clear(By.Name(name));
     }
 }

@@ -28,6 +28,7 @@ public class ContractImporter : IFileImport, IListDataImport<ContractData>
             try
             {
                 Import(contractData);
+                break;
             }
             catch (Exception)
             {
@@ -109,7 +110,9 @@ public class ContractImporter : IFileImport, IListDataImport<ContractData>
 
     private static void Import(ContractData contractData)
     {
-        Browser.SendKeysByName("idCard", contractData.Id);
+        const string idCardName = "idCard";
+        Browser.ClearByName(idCardName);
+        Browser.SendKeysByName(idCardName, contractData.Id);
         Browser.ClickByPossibleXpathList
         ([
             "/html/body/div[1]/div/div/div[2]/table/tbody/tr[1]/td[3]/div/div[2]/div/div/div[2]/div[1]/div/div/div/div[2]/div/div/div/div/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div/div[1]/div/table/tbody/tr/td[1]/table/tbody/tr/td[5]/table/tbody/tr[2]/td[2]/em/button",
