@@ -7,7 +7,6 @@ using AutoImport_WPF.context;
 using AutoImport_WPF.log;
 using AutoImport_WPF.log.logger;
 using AutoImport_WPF.service;
-using AutoImport_WPF.service.impl;
 using Microsoft.Win32;
 using Environment = AutoImport_WPF.config.Environment;
 
@@ -166,7 +165,7 @@ public partial class MainWindow
     {
         if (string.IsNullOrWhiteSpace(getContent()))
         {
-            return () => MessageBox.Show(getContent(), "警告", MessageBoxButton.OK, MessageBoxImage.Warning);
+            return () => MessageBox.Show(getMessage(), "警告", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         return null;
