@@ -89,7 +89,18 @@ public class ContractImporter : IFileImport, IListDataImport<ContractData>
             "/html/body/div[17]/div/div[6]",
             "/html/body/div[8]/div/div[7]"
         ];
-        
+        foreach (var idLimitXpath in idLimitPossibleXpathList)
+        {
+            try
+            {
+                Browser.ClickByXpath(idLimitXpath);
+                break;
+            }
+            catch (Exception)
+            {
+                Logger.Debug("正在查找身份证号码选项");
+            }
+        }
         // Click(idLimitPossibleXpath);
     }
 
