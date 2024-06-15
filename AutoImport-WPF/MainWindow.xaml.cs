@@ -99,14 +99,39 @@ public partial class MainWindow
 
     private void ImportContractButton_OnClick(object sender, RoutedEventArgs e)
     {
-        Logger.Info("开始导入签约服务");
+        var beforeHandler = BeforeHandleImportButtonClick();
+        if (beforeHandler != null)
+        {
+            beforeHandler();
+            return;
+        }
+
+        Logger.Info("开始导入签约服务数据");
         ImportServiceProvider.GetImportService().ImportContract(ApplicationContext.FileName);
-        Logger.Info("导入签约服务结束");
+        Logger.Info("导入签约服务数据结束");
     }
+
 
     private void ImportHealthFormButton_OnClick(object sender, RoutedEventArgs e)
     {
-        
+        var beforeHandler = BeforeHandleImportButtonClick();
+        if (beforeHandler != null)
+        {
+            beforeHandler();
+            return;
+        }
+
+        Logger.Info("开始导入健康体检表睡觉");
+    }
+
+    private static Action? BeforeHandleImportButtonClick()
+    {
+        if (string.IsNullOrWhiteSpace(Path.GetExtension(ApplicationContext.FileName)))
+        {
+            return () => MessageBox.Show("未选择导入文件", "警告", MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
+
+        return null;
     }
 
     private void MainWindow_OnClosing(object? sender, CancelEventArgs e)
