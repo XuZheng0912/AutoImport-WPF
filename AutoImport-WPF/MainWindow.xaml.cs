@@ -126,9 +126,47 @@ public partial class MainWindow
 
     private static Action? BeforeHandleImportButtonClick()
     {
-        if (string.IsNullOrWhiteSpace(Path.GetExtension(ApplicationContext.FileName)))
+        List<Action?> beforeHandlers =
+        [
+            CheckIsUserNameFilled(),
+            CheckIsPasswordFilled(),
+            CheckIsFileSelected()
+        ];
+        return beforeHandlers.OfType<Action>().FirstOrDefault();
+    }
+
+    private static Action? CheckIsFileSelected()
+    {
+        return CheckIsFilled
+        (
+            () => "请选择导入文件",
+            () => ApplicationContext.FileName
+        );
+    }
+
+    private static Action? CheckIsPasswordFilled()
+    {
+        return CheckIsFilled
+        (
+            () => "请填写密码",
+            () => ApplicationContext.Password
+        );
+    }
+
+    private static Action? CheckIsUserNameFilled()
+    {
+        return CheckIsFilled
+        (
+            () => "请填写用户名",
+            () => ApplicationContext.Username
+        );
+    }
+
+    private static Action? CheckIsFilled(Func<string> getMessage, Func<string> getContent)
+    {
+        if (string.IsNullOrWhiteSpace(getContent()))
         {
-            return () => MessageBox.Show("未选择导入文件", "警告", MessageBoxButton.OK, MessageBoxImage.Warning);
+            return () => MessageBox.Show(getContent(), "警告", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         return null;
