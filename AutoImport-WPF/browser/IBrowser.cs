@@ -14,6 +14,10 @@ public interface IBrowser
 
     void ClickByPossibleXpathList(List<string> possibleXpathList);
 
+    void DoubleClick(By by);
+
+    void DoubleClickByXpath(string xpath);
+
     void SendKeys(By by, string keys);
 
     void SendKeysByName(string name, string keys);

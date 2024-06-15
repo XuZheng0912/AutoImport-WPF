@@ -1,6 +1,7 @@
 ﻿using AutoImport_WPF.browser;
 using AutoImport_WPF.log;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 
 namespace AutoImport_WPF.service.impl;
@@ -18,7 +19,7 @@ public class Browser(IWebDriver webDriver) : IBrowser
 
     public void ClickByXpath(string xpath)
     {
-        WaitThenClick(By.XPath(xpath));
+        Click(By.XPath(xpath));
     }
 
     public void ClickByPossibleXpathList(List<string> possibleXpathList)
@@ -39,32 +40,15 @@ public class Browser(IWebDriver webDriver) : IBrowser
 
     public void ClickById(string id)
     {
-        WaitThenClick(By.Id(id));
-    }
-
-    private void WaitThenClick(By by)
-    {
-        WaitFindElement(by).Click();
+        Click(By.Id(id));
     }
 
     private IWebElement WaitFindElement(By by)
     {
-        _wait.Until(driver =>
-        {
-            try
-            {
-                driver.FindElement(by);
-                return true;
-            }
-            catch (Exception)
-            {
-                Logger.Debug($"正在查找{by}元素");
-                return false;
-            }
-        });
+        WaitElementLoad(by);
         return webDriver.FindElement(by);
     }
-    
+
     public void Wait(By by)
     {
         _wait.Until(driver =>
@@ -112,27 +96,53 @@ public class Browser(IWebDriver webDriver) : IBrowser
 
     public void Click(By by)
     {
-        webDriver.FindElement(by)
-            .Click();
+        WaitFindElement(by).Click();
     }
 
     public void SendKeys(By by, string keys)
     {
-        webDriver.FindElement(by).SendKeys(keys);
+        WaitFindElement(by).SendKeys(keys);
     }
 
     public void SendKeysByName(string name, string keys)
     {
         SendKeys(By.Name(name), keys);
     }
-    
+
     public void Clear(By by)
     {
-        webDriver.FindElement(by).Clear();
+        WaitFindElement(by).Clear();
     }
 
     public void ClearByName(string name)
     {
         Clear(By.Name(name));
+    }
+
+    public void DoubleClick(By by)
+    {
+        var actions = new Actions(webDriver);
+        actions.DoubleClick(WaitFindElement(by)).Perform();
+    }
+
+    public void DoubleClickByXpath(string xpath)
+    {
+        DoubleClick(By.XPath(xpath));
+    }
+
+    private void WaitElementLoad(By by)
+    {
+        _wait.Until(driver =>
+        {
+            try
+            {
+                driver.FindElement(by);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        });
     }
 }
