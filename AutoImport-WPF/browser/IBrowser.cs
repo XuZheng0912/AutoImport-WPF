@@ -15,4 +15,6 @@ public interface IBrowser
     void Wait(By by);
 
     void Clear(By by);
+
+    void Close();
 }

@@ -9,7 +9,12 @@ public class Browser(IWebDriver webDriver) : IBrowser
 {
     private static ILogger Logger => LogConfig.Logger;
 
-    private readonly WebDriverWait _wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(1));
+    private readonly WebDriverWait _wait = new(webDriver, TimeSpan.FromSeconds(1));
+
+    public void Close()
+    {
+        webDriver.Quit();
+    }
 
     public void ClickById(string id)
     {

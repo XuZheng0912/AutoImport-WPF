@@ -5,7 +5,7 @@ using NPOI.XSSF.UserModel;
 
 namespace AutoImport_WPF.excel;
 
-public abstract class ExcelReader<T> : IExcelListRead<T> where T : ExcelRowData
+public abstract class ExcelReader<T> : IExcelListRead<T>
 {
     private static ILogger Logger => LogConfig.Logger;
 

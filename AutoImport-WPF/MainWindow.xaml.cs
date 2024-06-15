@@ -20,16 +20,19 @@ public partial class MainWindow
 {
     private static ILogger Logger => LogConfig.Logger;
 
-    private IImportService ImportService { get; } = new ChromeImportService();
-
     public MainWindow()
     {
         InitializeComponent();
+        InitializeLogWindow();
+        InitEnvironment();
+        SetRememberUserConfig();
+    }
+
+    private static void InitializeLogWindow()
+    {
         var logWindow = new LogWindow();
         logWindow.Show();
         LogConfig.Logger = new CommonLogger(content => logWindow.AddListItem(content));
-        InitEnvironment();
-        SetRememberUserConfig();
     }
 
     private void ExcelFileSelectButton_OnClick(object sender, RoutedEventArgs e)
@@ -97,14 +100,13 @@ public partial class MainWindow
     private void ImportContractButton_OnClick(object sender, RoutedEventArgs e)
     {
         Logger.Info("开始导入签约服务");
-        ImportService.ImportContract(ApplicationContext.FileName);
+        ImportServiceProvider.GetImportService().ImportContract(ApplicationContext.FileName);
         Logger.Info("导入签约服务结束");
     }
 
     private void ImportHealthFormButton_OnClick(object sender, RoutedEventArgs e)
     {
-        var importService = new ChromeImportService();
-        importService.Import(ApplicationContext.FileName);
+        
     }
 
     private void MainWindow_OnClosing(object? sender, CancelEventArgs e)

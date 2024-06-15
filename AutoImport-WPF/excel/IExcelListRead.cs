@@ -2,7 +2,7 @@
 
 namespace AutoImport_WPF.excel;
 
-public interface IExcelListRead<T> where T : ExcelRowData
+public interface IExcelListRead<T>
 {
     List<T> Read(string fileName);
 }
