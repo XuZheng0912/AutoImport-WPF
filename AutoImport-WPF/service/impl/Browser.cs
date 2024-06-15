@@ -21,6 +21,22 @@ public class Browser(IWebDriver webDriver) : IBrowser
         WaitThenClick(By.XPath(xpath));
     }
 
+    public void ClickByPossibleXpathList(List<string> possibleXpathList)
+    {
+        foreach (var idLimitXpath in possibleXpathList)
+        {
+            try
+            {
+                ClickByXpath(idLimitXpath);
+                break;
+            }
+            catch (Exception)
+            {
+                Logger.Debug("正在查找具有多个可能定位符的元素");
+            }
+        }
+    }
+
     public void ClickById(string id)
     {
         WaitThenClick(By.Id(id));

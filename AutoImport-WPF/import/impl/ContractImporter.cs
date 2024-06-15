@@ -50,7 +50,7 @@ public class ContractImporter : IFileImport, IListDataImport<ContractData>
             }
             catch (Exception)
             {
-                Logger.Debug("准备导入失败，正在重新登入网站");
+                Logger.Debug("正在登入网站");
             }
         } while (!success);
     }
@@ -70,54 +70,14 @@ public class ContractImporter : IFileImport, IListDataImport<ContractData>
             "/html/body/div[1]/div/div/div[2]/table/tbody/tr[1]/td[3]/div/div[2]/div/div[1]/div[2]/div[1]/div/div/div/div[2]/div/div/div/div/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div/div[1]/div/table/tbody/tr/td[1]/table/tbody/tr/td[1]/div/img",
             "/html/body/div[1]/div/div/div[2]/table/tbody/tr[1]/td[3]/div/div[2]/div/div/div[2]/div[1]/div/div/div/div[2]/div/div/div/div/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div/div[1]/div/table/tbody/tr/td[1]/table/tbody/tr/td[1]/div/img"
         ];
-        foreach (var limitImgPossibleXpath in limitImgPossibleXpathList)
-        {
-            try
-            {
-                Browser.ClickByXpath(limitImgPossibleXpath);
-                break;
-            }
-            catch (Exception)
-            {
-                Logger.Debug("正在查找条件选择框");
-            }
-        }
-
+        Browser.ClickByPossibleXpathList(limitImgPossibleXpathList);
         List<string> idLimitPossibleXpathList =
         [
             "/html/body/div[12]/div/div[6]",
             "/html/body/div[17]/div/div[6]",
             "/html/body/div[8]/div/div[7]"
         ];
-        foreach (var idLimitXpath in idLimitPossibleXpathList)
-        {
-            try
-            {
-                Browser.ClickByXpath(idLimitXpath);
-                break;
-            }
-            catch (Exception)
-            {
-                Logger.Debug("正在查找身份证号码选项");
-            }
-        }
-        // Click(idLimitPossibleXpath);
-    }
-
-    private static void Click(List<string> possibleXpath)
-    {
-        foreach (var xpath in possibleXpath)
-        {
-            try
-            {
-                Browser.Click(By.XPath(xpath));
-                return;
-            }
-            catch (Exception)
-            {
-                // ignored
-            }
-        }
+        Browser.ClickByPossibleXpathList(idLimitPossibleXpathList);
     }
 
     private static void OpenWebsite()
@@ -149,6 +109,7 @@ public class ContractImporter : IFileImport, IListDataImport<ContractData>
 
     private static void Import(ContractData contractData)
     {
+        
     }
 
     private static List<ContractData> ReadFromExcelFile(string fileName)

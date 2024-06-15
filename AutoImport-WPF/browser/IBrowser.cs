@@ -12,6 +12,8 @@ public interface IBrowser
 
     void ClickByXpath(string xpath);
 
+    void ClickByPossibleXpathList(List<string> possibleXpathList);
+
     void SendKeys(By by, string keys);
 
     void Wait(By by);
