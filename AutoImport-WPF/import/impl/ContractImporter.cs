@@ -123,7 +123,53 @@ public class ContractImporter : IFileImport, IListDataImport<ContractData>
         Browser.DoubleClickByXpath(searchResultXpath);
         Browser.ClickByXpath("//button[text()='保存(F1)']");
         Browser.ClickByXpath("//button[text()='确定']");
-        Browser.ClickByXpath("/html/body/div[10]/div[2]/div[1]/div/div/div/div/div/div/div[2]/div[2]/div/div/div/div/ul/div/li[2]/div/img[1]");
+        Browser.ClickByXpath(
+            "/html/body/div[10]/div[2]/div[1]/div/div/div/div/div/div/div[2]/div[2]/div/div/div/div/ul/div/li[2]/div/img[1]");
+        Browser.ClickByXpath(
+            "/html/body/div[10]/div[2]/div[1]/div/div/div/div/div/div/div[2]/div[2]/div/div/div/div/ul/div/li[2]/ul/li[1]/div");
+        Browser.ClickByXpath("//button[text()='签约(F1)']");
+        Browser.ClickByXpath(
+            "/html/body/div[10]/div[2]/div[1]/div/div/div/div/div/div/div[3]/div[2]/div/div[4]/div[2]/div[1]/div/div/div/div/div/div/div[2]/div/div/div/div[2]/div[1]/div/div/div/div[1]/div/div/div/div[2]/div[1]/div/div/form/table/tbody/tr[2]/td[1]/div/div[1]/div/img");
+        SelectType(contractData.Type);
+        List<string> checkBoxXpathList =
+        [
+            "/html/body/div[12]/div[2]/div[1]/div/div/div/div/div/div/div[3]/div[2]/div/div[4]/div[2]/div[1]/div/div/div/div/div/div/div[2]/div/div/div/div[2]/div[1]/div/div/div/div[2]/div/div/div/div[2]/div[1]/div/div/div[2]/div/div[1]/div[1]/div[1]/div/table/thead/tr/td[1]/div/div",
+            "/html/body/div[11]/div[2]/div[1]/div/div/div/div/div/div/div[3]/div[2]/div/div[4]/div[2]/div[1]/div/div/div/div/div/div/div[2]/div/div/div/div[2]/div[1]/div/div/div/div[2]/div/div/div/div[2]/div[1]/div/div/div[2]/div/div[1]/div[1]/div[1]/div/table/thead/tr/td[1]/div/div"
+        ];
+        Browser.ClickByPossibleXpathList(checkBoxXpathList);
+        Browser.ClickByXpath("//button[text()='保存(F1)']");
+        Browser.ClickByXpath("//button[text()='是']");
+        Browser.ClickById("CLOSE");
+    }
+
+    private static void SelectType(string type)
+    {
+        var types = type.Split(",");
+        SelectTypeActions(types).ForEach(action => action());
+    }
+
+    private static List<Action> SelectTypeActions(string[] types)
+    {
+        if (types.Length == 0)
+        {
+            return
+            [
+                () => { Browser.ClickByXpath("/html/body/div[30]/div/div[1]/div"); }
+            ];
+        }
+
+        return types.Select<string, Action>(type => type switch
+            {
+                not null when string.IsNullOrWhiteSpace(type) => () => { },
+                "老年人" => () => Browser.ClickByXpath("/html/body/div[30]/div/div[2]/div"),
+                "0-6岁儿童" => () => Browser.ClickByXpath("/html/body/div[30]/div/div[3]/div"),
+                "建档立卡" => () => Browser.ClickByXpath("/html/body/div[30]/div/div[16]/div"),
+                "残疾人" => () => Browser.ClickByXpath("/html/body/div[30]/div/div[13]/div"),
+                "高血压" => () => Browser.ClickByXpath("/html/body/div[30]/div/div[5]/div"),
+                "糖尿病" => () => Browser.ClickByXpath("/html/body/div[30]/div/div[6]/div"),
+                _ => () => { }
+            }
+        ).ToList();
     }
 
     private static List<ContractData> ReadFromExcelFile(string fileName)
