@@ -27,11 +27,11 @@ public partial class MainWindow
         SetRememberUserConfig();
     }
 
-    private static void InitializeLogWindow()
+    private void InitializeLogWindow()
     {
         var logWindow = new LogWindow();
         logWindow.Show();
-        LogConfig.Logger = new CommonLogger(content => logWindow.AddListItem(content));
+        LogConfig.Logger = new CommonLogger(content => Dispatcher.Invoke(() => logWindow.AddListItem(content)));
     }
 
     private void ExcelFileSelectButton_OnClick(object sender, RoutedEventArgs e)
@@ -96,7 +96,7 @@ public partial class MainWindow
         UserConfig.SavePassword(password);
     }
 
-    private void ImportContractButton_OnClick(object sender, RoutedEventArgs e)
+    private async void ImportContractButton_OnClick(object sender, RoutedEventArgs e)
     {
         var beforeHandler = BeforeHandleImportButtonClick();
         if (beforeHandler != null)
@@ -106,12 +106,11 @@ public partial class MainWindow
         }
 
         Logger.Info("开始导入签约服务数据");
-        ImportServiceProvider.GetImportService().ImportContract(ApplicationContext.FileName);
+        await Task.Run(() => ImportServiceProvider.GetImportService().ImportContract(ApplicationContext.FileName));
         Logger.Info("导入签约服务数据结束");
     }
 
 
-    
     private void ImportHealthFormButton_OnClick(object sender, RoutedEventArgs e)
     {
         var beforeHandler = BeforeHandleImportButtonClick();

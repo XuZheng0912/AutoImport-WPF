@@ -28,12 +28,10 @@ public class ContractImporter : IFileImport, IListDataImport<ContractData>
             try
             {
                 Import(contractData);
-                break;
             }
             catch (Exception)
             {
-                Logger.Debug($"{contractData.Name}-{contractData.Id}导入异常");
-                Browser.Close();
+                Logger.Info($"{contractData.Name}-{contractData.Id}导入异常");
                 ReadyForImport();
             }
         }
@@ -51,7 +49,7 @@ public class ContractImporter : IFileImport, IListDataImport<ContractData>
             }
             catch (Exception)
             {
-                Logger.Debug("正在登入网站");
+                Logger.Info("正在登入网站");
             }
         } while (!success);
     }
@@ -127,14 +125,19 @@ public class ContractImporter : IFileImport, IListDataImport<ContractData>
             "/html/body/div[10]/div[2]/div[1]/div/div/div/div/div/div/div[2]/div[2]/div/div/div/div/ul/div/li[2]/div/img[1]");
         Browser.ClickByXpath(
             "/html/body/div[10]/div[2]/div[1]/div/div/div/div/div/div/div[2]/div[2]/div/div/div/div/ul/div/li[2]/ul/li[1]/div");
-        Browser.ClickByXpath("//button[text()='签约(F1)']");
+        Thread.Sleep(1500);
+        Browser.ClickByText("签约(F1)");
+        Thread.Sleep(1500);
         Browser.ClickByXpath(
             "/html/body/div[10]/div[2]/div[1]/div/div/div/div/div/div/div[3]/div[2]/div/div[4]/div[2]/div[1]/div/div/div/div/div/div/div[2]/div/div/div/div[2]/div[1]/div/div/div/div[1]/div/div/div/div[2]/div[1]/div/div/form/table/tbody/tr[2]/td[1]/div/div[1]/div/img");
         SelectType(contractData.Type);
+        Browser.ClickByXpath(
+            "/html/body/div[10]/div[2]/div[1]/div/div/div/div/div/div/div[3]/div[2]/div/div[4]/div[2]/div[1]/div/div/div/div/div/div/div[2]/div/div/div/div[2]/div[1]/div/div/div/div[1]/div/div/div/div[2]/div[1]/div/div/form/table/tbody/tr[2]/td[1]/div/div[1]/div/img");
         List<string> checkBoxXpathList =
         [
             "/html/body/div[12]/div[2]/div[1]/div/div/div/div/div/div/div[3]/div[2]/div/div[4]/div[2]/div[1]/div/div/div/div/div/div/div[2]/div/div/div/div[2]/div[1]/div/div/div/div[2]/div/div/div/div[2]/div[1]/div/div/div[2]/div/div[1]/div[1]/div[1]/div/table/thead/tr/td[1]/div/div",
-            "/html/body/div[11]/div[2]/div[1]/div/div/div/div/div/div/div[3]/div[2]/div/div[4]/div[2]/div[1]/div/div/div/div/div/div/div[2]/div/div/div/div[2]/div[1]/div/div/div/div[2]/div/div/div/div[2]/div[1]/div/div/div[2]/div/div[1]/div[1]/div[1]/div/table/thead/tr/td[1]/div/div"
+            "/html/body/div[11]/div[2]/div[1]/div/div/div/div/div/div/div[3]/div[2]/div/div[4]/div[2]/div[1]/div/div/div/div/div/div/div[2]/div/div/div/div[2]/div[1]/div/div/div/div[2]/div/div/div/div[2]/div[1]/div/div/div[2]/div/div[1]/div[1]/div[1]/div/table/thead/tr/td[1]/div/div",
+            "/html/body/div[10]/div[2]/div[1]/div/div/div/div/div/div/div[3]/div[2]/div/div[4]/div[2]/div[1]/div/div/div/div/div/div/div[2]/div/div/div/div[2]/div[1]/div/div/div/div[2]/div/div/div/div[2]/div[1]/div/div/div[2]/div/div[1]/div[1]/div[1]/div/table/thead/tr/td[1]/div/div"
         ];
         Browser.ClickByPossibleXpathList(checkBoxXpathList);
         Thread.Sleep(500);
@@ -154,13 +157,13 @@ public class ContractImporter : IFileImport, IListDataImport<ContractData>
         return types.Select<string, Action>(type => type switch
             {
                 not null when string.IsNullOrWhiteSpace(type) => () =>
-                    Browser.ClickByXpath("/html/body/div[30]/div/div[1]/div"),
-                "老年人" => () => Browser.ClickByXpath("/html/body/div[30]/div/div[2]/div"),
-                "0-6岁儿童" => () => Browser.ClickByXpath("/html/body/div[30]/div/div[3]/div"),
-                "建档立卡" => () => Browser.ClickByXpath("/html/body/div[30]/div/div[16]/div"),
-                "残疾人" => () => Browser.ClickByXpath("/html/body/div[30]/div/div[13]/div"),
-                "高血压" => () => Browser.ClickByXpath("/html/body/div[30]/div/div[5]/div"),
-                "糖尿病" => () => Browser.ClickByXpath("/html/body/div[30]/div/div[6]/div"),
+                    Browser.ClickByXpath("/html/body/div[29]/div/div[1]/div"),
+                "老年人" => () => Browser.ClickByXpath("/html/body/div[29]/div/div[2]/div"),
+                "0-6岁儿童" => () => Browser.ClickByXpath("/html/body/div[29]/div/div[3]/div"),
+                "建档立卡" => () => Browser.ClickByXpath("/html/body/div[29]/div/div[16]/div"),
+                "残疾人" => () => Browser.ClickByXpath("/html/body/div[29]/div/div[13]/div"),
+                "高血压" => () => Browser.ClickByXpath("/html/body/div[29]/div/div[5]/div"),
+                "糖尿病" => () => Browser.ClickByXpath("/html/body/div[29]/div/div[6]/div"),
                 _ => () => { }
             }
         ).ToList();

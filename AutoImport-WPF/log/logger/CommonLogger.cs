@@ -21,7 +21,7 @@ public class CommonLogger(Action<string> log) : ILogger
 
     private static bool EnableLog(LogLevel logLevel)
     {
-        return LogConfig.LogLevel() >= logLevel;
+        return LogConfig.LogLevel >= logLevel;
     }
 
     public void Debug(string content)
