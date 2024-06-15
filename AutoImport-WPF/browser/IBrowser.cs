@@ -16,6 +16,8 @@ public interface IBrowser
 
     void SendKeys(By by, string keys);
 
+    void SendKeysByName(string name, string keys);
+
     void Wait(By by);
 
     void Wait(List<By> possibleBy);

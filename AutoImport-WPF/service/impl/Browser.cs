@@ -125,4 +125,9 @@ public class Browser(IWebDriver webDriver) : IBrowser
     {
         webDriver.FindElement(by).SendKeys(keys);
     }
+
+    public void SendKeysByName(string name, string keys)
+    {
+        SendKeys(By.Name(name), keys);
+    }
 }
