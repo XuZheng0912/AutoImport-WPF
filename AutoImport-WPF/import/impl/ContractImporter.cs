@@ -109,22 +109,39 @@ public class ContractImporter : IFileImport, IListDataImport<ContractData>
     private static void Import(ContractData contractData)
     {
         const string idCardName = "idCard";
+        Thread.Sleep(500);
         Browser.ClearByName(idCardName);
         Browser.SendKeysByName(idCardName, contractData.Id);
         Browser.ClickByPossibleXpathList
         ([
             "/html/body/div[1]/div/div/div[2]/table/tbody/tr[1]/td[3]/div/div[2]/div/div/div[2]/div[1]/div/div/div/div[2]/div/div/div/div/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div/div[1]/div/table/tbody/tr/td[1]/table/tbody/tr/td[5]/table/tbody/tr[2]/td[2]/em/button",
-            "/html/body/div[1]/div/div/div[2]/table/tbody/tr[1]/td[3]/div/div[2]/div/div[1]/div[2]/div[1]/div/div/div/div[2]/div/div/div/div/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div/div[1]/div/table/tbody/tr/td[1]/table/tbody/tr/td[5]/table/tbody/tr[2]/td[2]/em/button"
+            "/html/body/div[1]/div/div/div[2]/table/tbody/tr[1]/td[3]/div/div[2]/div/div[1]/div[2]/div[1]/div/div/div/div[2]/div/div/div/div/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div/div[1]/div/table/tbody/tr/td[1]/table/tbody/tr/td[5]/table/tbody/tr[2]/td[2]/em/button",
+            "/html/body/div[2]/div/div/div[2]/table/tbody/tr[1]/td[3]/div/div[2]/div/div/div[2]/div[1]/div/div/div/div[2]/div/div/div/div/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div/div[1]/div/table/tbody/tr/td[1]/table/tbody/tr/td[5]/table/tbody/tr[2]/td[2]/em/button"
         ]);
-        const string searchResultXpath =
-            "/html/body/div[1]/div/div/div[2]/table/tbody/tr[1]/td[3]/div/div[2]/div/div[1]/div[2]/div[1]/div/div/div/div[2]/div/div/div/div/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div/div[2]/div/div[1]/div[2]/div";
-        Browser.DoubleClickByXpath(searchResultXpath);
+        Thread.Sleep(500);
+        List<string> possibleSearchResultXpathList =
+        [
+            "/html/body/div[2]/div/div/div[2]/table/tbody/tr[1]/td[3]/div/div[2]/div/div/div[2]/div[1]/div/div/div/div[2]/div/div/div/div/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div/div[2]/div/div[1]/div[2]/div",
+            "/html/body/div[1]/div/div/div[2]/table/tbody/tr[1]/td[3]/div/div[2]/div/div[1]/div[2]/div[1]/div/div/div/div[2]/div/div/div/div/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div/div[2]/div/div[1]/div[2]/div"
+        ];
+        Browser.DoubleClickByPossibleXpath(possibleSearchResultXpathList);
         Browser.ClickByXpath("//button[text()='保存(F1)']");
+        Thread.Sleep(1000);
         Browser.ClickByXpath("//button[text()='确定']");
-        Browser.ClickByXpath(
-            "/html/body/div[10]/div[2]/div[1]/div/div/div/div/div/div/div[2]/div[2]/div/div/div/div/ul/div/li[2]/div/img[1]");
-        Browser.ClickByXpath(
-            "/html/body/div[10]/div[2]/div[1]/div/div/div/div/div/div/div[2]/div[2]/div/div/div/div/ul/div/li[2]/ul/li[1]/div");
+        Thread.Sleep(1000);
+        try
+        {
+            Browser.ClickByXpath("/html/body/div[11]/div[2]/div[1]/div/div/div/div/div/div/div[5]/div");
+            Browser.ClickByXpath(
+                "/html/body/div[11]/div[2]/div[1]/div/div/div/div/div/div/div[2]/div[2]/div/div/div/div/ul/div/li[2]/ul/li[1]/div");
+        }
+        catch (Exception)
+        {
+            Browser.ClickByXpath(
+                "/html/body/div[10]/div[2]/div[1]/div/div/div/div/div/div/div[2]/div[2]/div/div/div/div/ul/div/li[2]/div/img[1]");
+            Browser.ClickByXpath(
+                "/html/body/div[10]/div[2]/div[1]/div/div/div/div/div/div/div[2]/div[2]/div/div/div/div/ul/div/li[2]/ul/li[1]/div");
+        }
         Thread.Sleep(1500);
         Browser.ClickByText("签约(F1)");
         Thread.Sleep(1500);
@@ -143,6 +160,7 @@ public class ContractImporter : IFileImport, IListDataImport<ContractData>
         Thread.Sleep(500);
         Browser.ClickByText("保存(F1)");
         Browser.ClickByText("是");
+        Thread.Sleep(500);
         Browser.ClickById("CLOSE");
     }
 

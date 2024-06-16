@@ -147,6 +147,22 @@ public class Browser(IWebDriver webDriver) : IBrowser
         DoubleClick(By.XPath(xpath));
     }
 
+    public void DoubleClickByPossibleXpath(List<string> xpathList)
+    {
+        foreach (var xpath in xpathList)
+        {
+            try
+            {
+                DoubleClickByXpath(xpath);
+                break;
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
+        }
+    }
+
     private void WaitElementLoad(By by)
     {
         _wait.Until(driver =>

@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using System.Windows.Documents;
+using OpenQA.Selenium;
 
 namespace AutoImport_WPF.browser;
 
@@ -20,6 +21,8 @@ public interface IBrowser
 
     void DoubleClickByXpath(string xpath);
 
+    void DoubleClickByPossibleXpath(List<string> xpathList);
+    
     void SendKeys(By by, string keys);
 
     void SendKeysByName(string name, string keys);
