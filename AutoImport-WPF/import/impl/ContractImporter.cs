@@ -32,7 +32,6 @@ public class ContractImporter : IFileImport, IListDataImport<ContractData>
             catch (Exception)
             {
                 Logger.Info($"{contractData.Name}-{contractData.Id}导入异常");
-                ReadyForImport();
             }
         }
     }
@@ -108,6 +107,7 @@ public class ContractImporter : IFileImport, IListDataImport<ContractData>
 
     private static void Import(ContractData contractData)
     {
+        ReadyForImport();
         const string idCardName = "idCard";
         Thread.Sleep(500);
         Browser.ClearByName(idCardName);
@@ -129,19 +129,10 @@ public class ContractImporter : IFileImport, IListDataImport<ContractData>
         Thread.Sleep(1000);
         Browser.ClickByXpath("//button[text()='确定']");
         Thread.Sleep(1000);
-        try
-        {
-            Browser.ClickByXpath("/html/body/div[11]/div[2]/div[1]/div/div/div/div/div/div/div[5]/div");
-            Browser.ClickByXpath(
-                "/html/body/div[11]/div[2]/div[1]/div/div/div/div/div/div/div[2]/div[2]/div/div/div/div/ul/div/li[2]/ul/li[1]/div");
-        }
-        catch (Exception)
-        {
-            Browser.ClickByXpath(
-                "/html/body/div[10]/div[2]/div[1]/div/div/div/div/div/div/div[2]/div[2]/div/div/div/div/ul/div/li[2]/div/img[1]");
-            Browser.ClickByXpath(
-                "/html/body/div[10]/div[2]/div[1]/div/div/div/div/div/div/div[2]/div[2]/div/div/div/div/ul/div/li[2]/ul/li[1]/div");
-        }
+        Browser.ClickByXpath(
+            "/html/body/div[10]/div[2]/div[1]/div/div/div/div/div/div/div[2]/div[2]/div/div/div/div/ul/div/li[2]/div/img[1]");
+        Browser.ClickByXpath(
+            "/html/body/div[10]/div[2]/div[1]/div/div/div/div/div/div/div[2]/div[2]/div/div/div/div/ul/div/li[2]/ul/li[1]/div");
         Thread.Sleep(1500);
         Browser.ClickByText("签约(F1)");
         Thread.Sleep(1500);
