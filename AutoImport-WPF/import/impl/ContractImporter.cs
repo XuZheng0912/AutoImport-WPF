@@ -149,7 +149,10 @@ public class ContractImporter : IFileImport, IListDataImport<ContractData>
     private static void SelectType(string type)
     {
         var types = type.Split(",");
-        SelectTypeActions(types).ForEach(action => action());
+        if (string.IsNullOrWhiteSpace(type))
+        {
+            Browser.ClickByXpath("/html/body/div[29]/div/div[1]/div");
+        }
     }
 
     private static List<Action> SelectTypeActions(string[] types)
@@ -158,12 +161,12 @@ public class ContractImporter : IFileImport, IListDataImport<ContractData>
             {
                 not null when string.IsNullOrWhiteSpace(type) => () =>
                     Browser.ClickByXpath("/html/body/div[29]/div/div[1]/div"),
-                "老年人" => () => Browser.ClickByXpath("/html/body/div[29]/div/div[2]/div"),
-                "0-6岁儿童" => () => Browser.ClickByXpath("/html/body/div[29]/div/div[3]/div"),
-                "建档立卡" => () => Browser.ClickByXpath("/html/body/div[29]/div/div[16]/div"),
-                "残疾人" => () => Browser.ClickByXpath("/html/body/div[29]/div/div[13]/div"),
-                "高血压" => () => Browser.ClickByXpath("/html/body/div[29]/div/div[5]/div"),
-                "糖尿病" => () => Browser.ClickByXpath("/html/body/div[29]/div/div[6]/div"),
+                // "老年人" => () => Browser.ClickByXpath("/html/body/div[29]/div/div[2]/div"),
+                // "0-6岁儿童" => () => Browser.ClickByXpath("/html/body/div[29]/div/div[3]/div"),
+                // "建档立卡" => () => Browser.ClickByXpath("/html/body/div[29]/div/div[16]/div"),
+                // "残疾人" => () => Browser.ClickByXpath("/html/body/div[29]/div/div[13]/div"),
+                // "高血压" => () => Browser.ClickByXpath("/html/body/div[29]/div/div[5]/div"),
+                // "糖尿病" => () => Browser.ClickByXpath("/html/body/div[29]/div/div[6]/div"),
                 _ => () => { }
             }
         ).ToList();
