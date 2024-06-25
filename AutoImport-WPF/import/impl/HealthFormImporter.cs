@@ -70,6 +70,7 @@ public class HealthFormImporter : IFileImport, IListDataImport<HealthFormData>
         Browser.ClickByPossibleXpathList(limitImgPossibleXpathList);
         List<string> idLimitPossibleXpathList =
         [
+            "/html/body/div[8]/div/div[6]",
             "/html/body/div[9]/div/div[6]"
         ];
         Browser.ClickByPossibleXpathList(idLimitPossibleXpathList);
