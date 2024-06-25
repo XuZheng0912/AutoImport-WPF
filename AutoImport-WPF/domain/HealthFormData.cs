@@ -4,6 +4,9 @@ namespace AutoImport_WPF.domain;
 
 public class HealthFormData(ExcelRow row) : ExcelRowData(row)
 {
+
+    public string Name => base[2];
+    
     public string Id => base[6];
 
 

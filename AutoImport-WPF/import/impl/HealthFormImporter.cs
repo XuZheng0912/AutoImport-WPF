@@ -23,8 +23,41 @@ public class HealthFormImporter : IFileImport, IListDataImport<HealthFormData>
     public void Import(List<HealthFormData> dataList)
     {
         ReadyForImport();
+        foreach (var healthFormData in dataList)
+        {
+            try
+            {
+                Import(healthFormData);
+            }
+            catch (Exception)
+            {
+                Logger.Info($"{healthFormData.Name}-{healthFormData.Id}导入异常");
+            }
+        }
     }
 
+    private static void Import(HealthFormData healthFormData)
+    {
+        const string idCardName = "idCard";
+        Thread.Sleep(500);
+        Browser.ClearByName(idCardName);
+        Browser.SendKeysByName(idCardName, healthFormData.Id);
+        Browser.ClickByPossibleXpathList
+        ([
+            "/html/body/div[1]/div/div/div[2]/table/tbody/tr[1]/td[3]/div/div[2]/div/div/div[2]/div[1]/div/div/div/div[2]/div/div/div/div/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div/div[1]/div/table/tbody/tr/td[1]/table/tbody/tr/td[5]/table/tbody/tr[2]/td[2]/em/button",
+            "/html/body/div[1]/div/div/div[2]/table/tbody/tr[1]/td[3]/div/div[2]/div/div[1]/div[2]/div[1]/div/div/div/div[2]/div/div/div/div/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div/div[1]/div/table/tbody/tr/td[1]/table/tbody/tr/td[5]/table/tbody/tr[2]/td[2]/em/button",
+            "/html/body/div[2]/div/div/div[2]/table/tbody/tr[1]/td[3]/div/div[2]/div/div/div[2]/div[1]/div/div/div/div[2]/div/div/div/div/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div/div[1]/div/table/tbody/tr/td[1]/table/tbody/tr/td[5]/table/tbody/tr[2]/td[2]/em/button"
+        ]);
+        Thread.Sleep(500);
+        List<string> possibleSearchResultXpathList =
+        [
+            "/html/body/div[2]/div/div/div[2]/table/tbody/tr[1]/td[3]/div/div[2]/div/div/div[2]/div[1]/div/div/div/div[2]/div/div/div/div/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div/div[2]/div/div[1]/div[2]/div",
+            "/html/body/div[1]/div/div/div[2]/table/tbody/tr[1]/td[3]/div/div[2]/div/div[1]/div[2]/div[1]/div/div/div/div[2]/div/div/div/div/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div/div[2]/div/div[1]/div[2]/div"
+        ];
+        Browser.DoubleClickByPossibleXpath(possibleSearchResultXpathList);
+    }
+    
+    
     private static void ReadyForImport()
     {
         var success = false;
