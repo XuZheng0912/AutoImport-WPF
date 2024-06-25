@@ -80,6 +80,9 @@ public class HealthFormImporter : IFileImport, IListDataImport<HealthFormData>
         SendKeysWhenValueNotEmpty("diastolic", healthFormData.RightDiastolic);
         SendKeysWhenValueNotEmpty("constriction_L", healthFormData.LeftConstriction);
         SendKeysWhenValueNotEmpty("diastolic_L", healthFormData.LeftDiastolic);
+        SendKeysWhenInputEmpty("height", healthFormData.Height);
+        SendKeysWhenInputEmpty("weight", healthFormData.Weight);
+        SendKeysWhenInputEmpty("waistline", healthFormData.Waistline);
     }
 
     private static void SendKeysWhenInputEmpty(string elementName, string value)

@@ -23,6 +23,12 @@ public class HealthFormData(ExcelRow row) : ExcelRowData(row)
 
     public string LeftDiastolic => base[44];
 
+    public string Height => base[80];
+
+    public string Weight => base[81];
+
+    public string Waistline => base[82];
+
     public bool IsElder()
     {
         return IsCellNullOrWhiteSpace(7);
