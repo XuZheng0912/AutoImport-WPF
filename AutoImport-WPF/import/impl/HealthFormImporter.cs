@@ -55,9 +55,59 @@ public class HealthFormImporter : IFileImport, IListDataImport<HealthFormData>
             "/html/body/div[1]/div/div/div[2]/table/tbody/tr[1]/td[3]/div/div[2]/div/div[1]/div[2]/div[1]/div/div/div/div[2]/div/div/div/div/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div/div[2]/div/div[1]/div[2]/div"
         ];
         Browser.DoubleClickByPossibleXpath(possibleSearchResultXpathList);
+        Browser.ClickByXpath("//button[text()='新建(F2)']");
+
+        if (healthFormData.IsElder())
+        {
+            SelectOptionWhenNoSelected("checkWay", "2");
+        }
+
+        if (healthFormData.IsHypertension())
+        {
+            SelectOptionWhenNoSelected("checkWay", "3");
+        }
+
+        if (healthFormData.IsDiabetes())
+        {
+            SelectOptionWhenNoSelected("checkWay", "4");
+        }
+
+        SelectOptionWhenNoSelected("symptom", "01");
+        SendKeysWhenInputEmpty("temperature", healthFormData.Temperature);
+        SendKeysWhenInputEmpty("pulse", healthFormData.PulseRate);
+        SendKeysWhenInputEmpty("breathe", healthFormData.BreathRate);
+        SendKeysWhenValueNotEmpty("constriction", healthFormData.RightConstriction);
+        SendKeysWhenValueNotEmpty("diastolic", healthFormData.RightDiastolic);
+        SendKeysWhenValueNotEmpty("constriction_L", healthFormData.LeftConstriction);
+        SendKeysWhenValueNotEmpty("diastolic_L", healthFormData.LeftDiastolic);
     }
-    
-    
+
+    private static void SendKeysWhenInputEmpty(string elementName, string value)
+    {
+        SendKeysWhen(elementName, value, () => string.IsNullOrWhiteSpace(Browser.GetInputValueByName(elementName)));
+    }
+
+    private static void SendKeysWhenValueNotEmpty(string elementName, string value)
+    {
+        SendKeysWhen(elementName, value, () => !string.IsNullOrWhiteSpace(value));
+    }
+
+    private static void SendKeysWhen(string elementName, string value, Func<bool> condition)
+    {
+        if (!condition()) return;
+        Browser.SendKeysByName(elementName, value);
+    }
+
+    private static void SelectOptionWhenNoSelected(string name, string value)
+    {
+        if (Browser.IsOptionSelected(name, value))
+        {
+            return;
+        }
+
+        Browser.SelectByName(name, value);
+    }
+
     private static void ReadyForImport()
     {
         var success = false;

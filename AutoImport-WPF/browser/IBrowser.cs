@@ -7,6 +7,12 @@ public interface IBrowser
 {
     void Get(string url);
 
+    string GetInputValueByName(string name);
+
+    void SelectByName(string name, string value);
+
+    bool IsOptionSelected(string name, string value);
+
     void Click(By by);
 
     void ClickById(string id);
@@ -22,7 +28,7 @@ public interface IBrowser
     void DoubleClickByXpath(string xpath);
 
     void DoubleClickByPossibleXpath(List<string> xpathList);
-    
+
     void SendKeys(By by, string keys);
 
     void SendKeysByName(string name, string keys);
