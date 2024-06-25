@@ -111,7 +111,7 @@ public partial class MainWindow
     }
 
 
-    private void ImportHealthFormButton_OnClick(object sender, RoutedEventArgs e)
+    private async void ImportHealthFormButton_OnClick(object sender, RoutedEventArgs e)
     {
         var beforeHandler = BeforeHandleImportButtonClick();
         if (beforeHandler != null)
@@ -120,7 +120,9 @@ public partial class MainWindow
             return;
         }
 
-        Logger.Info("开始导入健康体检表睡觉");
+        Logger.Info("开始导入健康体检表数据");
+        await Task.Run(() => ImportServiceProvider.GetImportService().ImportHealthForm(ApplicationContext.FileName));
+        Logger.Info("导入健康体检表数据结束");
     }
 
     private static Action? BeforeHandleImportButtonClick()
