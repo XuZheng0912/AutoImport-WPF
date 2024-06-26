@@ -13,6 +13,8 @@ public interface IBrowser
 
     bool IsOptionSelected(string name, string value);
 
+    bool IsOptionSelected(string name);
+
     void Click(By by);
 
     void ClickById(string id);

@@ -82,7 +82,6 @@ public partial class MainWindow
 
     private void UsernameTextBox_OnTextChanged(object sender, TextChangedEventArgs e)
     {
-        // 320922197806044437
         var username = UsernameTextBox.Text;
         ApplicationContext.Username = username;
         UserConfig.SaveUsername(username);
@@ -90,7 +89,6 @@ public partial class MainWindow
 
     private void PasswordBox_OnPasswordChanged(object sender, RoutedEventArgs e)
     {
-        // bh88888888
         var password = PasswordBox.Password;
         ApplicationContext.Password = password;
         UserConfig.SavePassword(password);

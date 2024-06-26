@@ -83,6 +83,167 @@ public class HealthFormImporter : IFileImport, IListDataImport<HealthFormData>
         SendKeysWhenInputEmpty("height", healthFormData.Height);
         SendKeysWhenInputEmpty("weight", healthFormData.Weight);
         SendKeysWhenInputEmpty("waistline", healthFormData.Waistline);
+
+        SelectOptionWhenAllNoSelected("healthStatus", "1");
+        SelectOptionWhenAllNoSelected("selfCare", "1");
+        SelectOptionWhenAllNoSelected("cognitive", "1");
+        SelectOptionWhenAllNoSelected("emotion", "1");
+
+        SelectOptionWhenAllNoSelected("physicalExerciseFrequency", "4");
+        SelectOptionWhenAllNoSelected("dietaryHabit", "1");
+        SelectOptionWhenAllNoSelected("wehtherSmoke", "1");
+        SelectOptionWhenAllNoSelected("drinkingFrequency", "1");
+        SelectOptionWhenAllNoSelected("occupational", "1");
+        SelectOptionWhenAllNoSelected("lip", "1");
+        SelectOptionWhenAllNoSelected("denture", "1");
+        SelectOptionWhenAllNoSelected("pharyngeal", "1");
+
+        SendKeysWhenInputEmpty("leftEye", healthFormData.LeftEye);
+        SendKeysWhenInputEmpty("rightEye", healthFormData.RightEye);
+        SelectOptionWhenAllNoSelected("hearing", "1");
+        SelectOptionWhenAllNoSelected("motion", "1");
+        SelectOptionWhenAllNoSelected("skin", "1");
+        SelectOptionWhenAllNoSelected("sclera", "1");
+        SelectOptionWhenAllNoSelected("lymphnodes", "1");
+        SelectOptionWhenAllNoSelected("barrelChest", "1");
+        SelectOptionWhenAllNoSelected("breathSound", "1");
+        SelectOptionWhenAllNoSelected("rales", "1");
+
+        SendKeysWhenValueNotEmpty("heartRate", healthFormData.HeartRate);
+        SelectOptionWhenAllNoSelected("rhythm", "1");
+        SelectOptionWhenAllNoSelected("heartMurmur", "1");
+        SelectOptionWhenAllNoSelected("abdominAltend", "1");
+        SelectOptionWhenAllNoSelected("adbominAlmass", "1");
+        SelectOptionWhenAllNoSelected("liverBig", "1");
+        SelectOptionWhenAllNoSelected("splenomegaly", "1");
+        SelectOptionWhenAllNoSelected("dullness", "1");
+        SelectOptionWhenAllNoSelected("edema", "1");
+
+        if (healthFormData.IsEcgNormal())
+        {
+            SelectOptionWhenNoSelected("ecg", "1");
+        }
+        else
+        {
+            SelectOptionWhenNoSelected("ecg", "2");
+            SendKeysWhenValueNotEmpty("ecgText", healthFormData.EcgAbnormal);
+        }
+
+        if (healthFormData.IsChestXrayNormal())
+        {
+            SelectOptionWhenNoSelected("x", "1");
+        }
+        else
+        {
+            SelectOptionWhenNoSelected("x", "2");
+            SendKeysWhenValueNotEmpty("xText", healthFormData.ChestXrayAbnormal);
+        }
+
+        if (healthFormData.IsBUltrasonicNormal())
+        {
+            SelectOptionWhenNoSelected("b", "1");
+        }
+        else
+        {
+            SelectOptionWhenNoSelected("b", "2");
+            SendKeysWhenValueNotEmpty("bText", healthFormData.BUltrasonicAbnormal);
+        }
+
+        SelectOptionWhenAllNoSelected("cerebrovascularDiseases", "1");
+        SelectOptionWhenAllNoSelected("kidneyDiseases", "1");
+        SelectOptionWhenAllNoSelected("heartDisease", "1");
+        SelectOptionWhenAllNoSelected("VascularDisease", "1");
+        SelectOptionWhenAllNoSelected("eyeDiseases", "1");
+        SelectOptionWhenAllNoSelected("neurologicalDiseases", "1");
+
+        if (healthFormData.HasOtherSystemDisease())
+        {
+            SelectOptionWhenNoSelected("otherDiseasesone", "2");
+            SendKeysWhenValueNotEmpty("otherDiseasesoneDesc", healthFormData.OtherSystemDisease);
+        }
+        else
+        {
+            SelectOptionWhenNoSelected("otherDiseasesone", "1");
+        }
+
+        SelectOptionWhenAllNoSelected("inhospitalFlag", "n");
+        SelectOptionWhenAllNoSelected("infamilybedFlag", "n");
+
+        SelectOptionWhenNoSelected("medicineFlag", "y");
+        SendKeysWhenValueNotEmpty("medicine_1_FD6PV", healthFormData.Medicine1);
+        SendKeysWhenValueNotEmpty("use_1", healthFormData.MedicineUse1);
+        SendKeysWhenValueNotEmpty("eachDose_1", healthFormData.MedicineEachDose1);
+        SendKeysWhenValueNotEmpty("useDate_1", healthFormData.MedicineUseDate1);
+        SelectOptionWhenNoSelected("medicineYield1", OptionOfMedicineYield(healthFormData.MedicineYield1));
+
+        SendKeysWhenValueNotEmpty("medicine_2_FD6PV", healthFormData.Medicine2);
+        SendKeysWhenValueNotEmpty("use_2", healthFormData.MedicineUse2);
+        SendKeysWhenValueNotEmpty("eachDose_2", healthFormData.MedicineEachDose2);
+        SendKeysWhenValueNotEmpty("useDate_2", healthFormData.MedicineUseDate2);
+        SelectOptionWhenNoSelected("medicineYield2", OptionOfMedicineYield(healthFormData.MedicineYield2));
+
+        SendKeysWhenValueNotEmpty("medicine_3_FD6PV", healthFormData.Medicine3);
+        SendKeysWhenValueNotEmpty("use_3", healthFormData.MedicineUse3);
+        SendKeysWhenValueNotEmpty("eachDose_3", healthFormData.MedicineEachDose3);
+        SendKeysWhenValueNotEmpty("useDate_3", healthFormData.MedicineUseDate3);
+        SelectOptionWhenNoSelected("medicineYield3", OptionOfMedicineYield(healthFormData.MedicineYield3));
+
+        SendKeysWhenValueNotEmpty("medicine_4_FD6PV", healthFormData.Medicine4);
+        SendKeysWhenValueNotEmpty("use_4", healthFormData.MedicineUse4);
+        SendKeysWhenValueNotEmpty("eachDose_4", healthFormData.MedicineEachDose4);
+        SendKeysWhenValueNotEmpty("useDate_4", healthFormData.MedicineUseDate4);
+        SelectOptionWhenNoSelected("medicineYield4", OptionOfMedicineYield(healthFormData.MedicineYield4));
+
+        SelectOptionWhenNoSelected("nonimmuneFlag", "n");
+
+        if (healthFormData.HasAbnormal())
+        {
+            SelectOptionWhenNoSelected("abnormality", "2");
+            SendKeysWhenValueNotEmpty("abnormality1", healthFormData.Abnormality1);
+            SendKeysWhenValueNotEmpty("abnormality2", healthFormData.Abnormality2);
+            SendKeysWhenValueNotEmpty("abnormality3", healthFormData.Abnormality3);
+            SendKeysWhenValueNotEmpty("abnormality4", healthFormData.Abnormality4);
+        }
+        else
+        {
+            SelectOptionWhenNoSelected("abnormality", "1");
+        }
+
+        if (healthFormData.IsPutIntoAdministration())
+        {
+            SelectOptionWhenNoSelected("mana", "1");
+        }
+
+        if (healthFormData.IsSuggestedReview())
+        {
+            SelectOptionWhenNoSelected("mana", "2");
+        }
+
+        if (healthFormData.IsSuggestReferral())
+        {
+            SelectOptionWhenNoSelected("mana", "3");
+        }
+    }
+
+    private static string OptionOfMedicineYield(string medicineYield)
+    {
+        var trim = medicineYield.Trim();
+        if ("规律".Equals(trim))
+        {
+            return "1";
+        }
+
+        if ("间断".Equals(trim))
+        {
+            return "2";
+        }
+
+        if ("不服药".Equals(trim))
+        {
+            return "3";
+        }
+
+        return "";
     }
 
     private static void SendKeysWhenInputEmpty(string elementName, string value)
@@ -103,11 +264,17 @@ public class HealthFormImporter : IFileImport, IListDataImport<HealthFormData>
 
     private static void SelectOptionWhenNoSelected(string name, string value)
     {
-        if (Browser.IsOptionSelected(name, value))
-        {
-            return;
-        }
+        SelectOptionWhen(name, value, () => !Browser.IsOptionSelected(name, value));
+    }
 
+    private static void SelectOptionWhenAllNoSelected(string name, string value)
+    {
+        SelectOptionWhen(name, value, () => !Browser.IsOptionSelected(name));
+    }
+
+    private static void SelectOptionWhen(string name, string value, Func<bool> condition)
+    {
+        if (!condition() || string.IsNullOrWhiteSpace(value)) return;
         Browser.SelectByName(name, value);
     }
 

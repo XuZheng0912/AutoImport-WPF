@@ -12,6 +12,12 @@ public class Browser(IWebDriver webDriver) : IBrowser
 
     private readonly WebDriverWait _wait = new(webDriver, TimeSpan.FromSeconds(0.5));
 
+    public bool IsOptionSelected(string name)
+    {
+        var webElements = webDriver.FindElements(By.Name(name));
+        return webElements.Any(element => element.Selected);
+    }
+
     public string GetInputValueByName(string name)
     {
         return webDriver.FindElement(By.Name(name)).Text;
