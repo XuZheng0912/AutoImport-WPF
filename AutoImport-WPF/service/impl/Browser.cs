@@ -32,12 +32,12 @@ public class Browser(IWebDriver webDriver) : IBrowser
 
     public void SelectByName(string name, string value)
     {
-        ClickByXpath($"//input[@name='{name}'][@value={value}]");
+        ClickByXpath($"//input[@name='{name}'][@value='{value}']");
     }
 
     public bool IsOptionSelected(string name, string value)
     {
-        var webElement = webDriver.FindElement(By.XPath($"//input[@name='{name}'][@value={value}]"));
+        var webElement = webDriver.FindElement(By.XPath($"//input[@name='{name}'][@value='{value}']"));
         return webElement.Selected;
     }
 

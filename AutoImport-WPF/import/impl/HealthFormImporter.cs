@@ -60,7 +60,7 @@ public class HealthFormImporter : IFileImport, IListDataImport<HealthFormData>
             "/html/body/div[1]/div/div/div[2]/table/tbody/tr[1]/td[3]/div/div[2]/div/div[1]/div[2]/div[1]/div/div/div/div[2]/div/div/div/div/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div/div[2]/div/div[1]/div[2]/div"
         ];
         Browser.DoubleClickByPossibleXpath(possibleSearchResultXpathList);
-        Thread.Sleep(1000);
+        Thread.Sleep(1500);
         Browser.ClickByXpath("//button[text()='新建(F2)']");
         Thread.Sleep(500);
         if (healthFormData.IsElder())
@@ -174,10 +174,11 @@ public class HealthFormImporter : IFileImport, IListDataImport<HealthFormData>
         {
             SelectOptionWhenNoSelected("otherDiseasesone", "1");
         }
-
+        Browser.ScrollTo("inhospitalFlag");
+        Thread.Sleep(500);
         SelectOptionWhenAllNoSelected("inhospitalFlag", "n");
         SelectOptionWhenAllNoSelected("infamilybedFlag", "n");
-
+        
         SelectOptionWhenNoSelected("medicineFlag", "y");
         SendKeysWhenValueNotEmpty("medicine_1_FD6PV", healthFormData.Medicine1);
         SendKeysWhenValueNotEmpty("use_1", healthFormData.MedicineUse1);
