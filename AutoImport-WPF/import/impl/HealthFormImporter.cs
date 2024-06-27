@@ -118,9 +118,9 @@ public class HealthFormImporter : IFileImport, IListDataImport<HealthFormData>
         SendKeysWhenValueNotEmpty("heartRate", healthFormData.HeartRate);
         SelectOptionWhenAllNoSelected("rhythm", "1");
         SelectOptionWhenAllNoSelected("heartMurmur", "1");
-        
+
         Browser.ScrollTo("abdominAltend");
-        
+
         SelectOptionWhenAllNoSelected("abdominAltend", "1");
         SelectOptionWhenAllNoSelected("adbominAlmass", "1");
         SelectOptionWhenAllNoSelected("liverBig", "1");
@@ -174,35 +174,52 @@ public class HealthFormImporter : IFileImport, IListDataImport<HealthFormData>
         {
             SelectOptionWhenNoSelected("otherDiseasesone", "1");
         }
+
         Browser.ScrollTo("inhospitalFlag");
         Thread.Sleep(500);
         SelectOptionWhenAllNoSelected("inhospitalFlag", "n");
         SelectOptionWhenAllNoSelected("infamilybedFlag", "n");
-        
+
         SelectOptionWhenNoSelected("medicineFlag", "y");
         SendKeysWhenValueNotEmpty("medicine_1_FD6PV", healthFormData.Medicine1);
         SendKeysWhenValueNotEmpty("use_1", healthFormData.MedicineUse1);
         SendKeysWhenValueNotEmpty("eachDose_1", healthFormData.MedicineEachDose1);
         SendKeysWhenValueNotEmpty("useDate_1", healthFormData.MedicineUseDate1);
-        SelectOptionWhenNoSelected("medicineYield1", OptionOfMedicineYield(healthFormData.MedicineYield1));
-
+        var yieldOption1 = OptionOfMedicineYield(healthFormData.MedicineYield1);
+        if (!string.IsNullOrWhiteSpace(yieldOption1))
+        {
+            SelectOptionWhenNoSelected("medicineYield1", yieldOption1);
+        }
+        
         SendKeysWhenValueNotEmpty("medicine_2_FD6PV", healthFormData.Medicine2);
         SendKeysWhenValueNotEmpty("use_2", healthFormData.MedicineUse2);
         SendKeysWhenValueNotEmpty("eachDose_2", healthFormData.MedicineEachDose2);
         SendKeysWhenValueNotEmpty("useDate_2", healthFormData.MedicineUseDate2);
-        SelectOptionWhenNoSelected("medicineYield2", OptionOfMedicineYield(healthFormData.MedicineYield2));
-
+        var yieldOption2 = OptionOfMedicineYield(healthFormData.MedicineYield2);
+        if (!string.IsNullOrWhiteSpace(yieldOption2))
+        {
+            SelectOptionWhenNoSelected("medicineYield2", yieldOption2);
+        }
+        
         SendKeysWhenValueNotEmpty("medicine_3_FD6PV", healthFormData.Medicine3);
         SendKeysWhenValueNotEmpty("use_3", healthFormData.MedicineUse3);
         SendKeysWhenValueNotEmpty("eachDose_3", healthFormData.MedicineEachDose3);
         SendKeysWhenValueNotEmpty("useDate_3", healthFormData.MedicineUseDate3);
-        SelectOptionWhenNoSelected("medicineYield3", OptionOfMedicineYield(healthFormData.MedicineYield3));
+        var yieldOption3 = OptionOfMedicineYield(healthFormData.MedicineYield3);
+        if (!string.IsNullOrWhiteSpace(yieldOption3))
+        {
+            SelectOptionWhenNoSelected("medicineYield3", yieldOption3);
+        }
 
         SendKeysWhenValueNotEmpty("medicine_4_FD6PV", healthFormData.Medicine4);
         SendKeysWhenValueNotEmpty("use_4", healthFormData.MedicineUse4);
         SendKeysWhenValueNotEmpty("eachDose_4", healthFormData.MedicineEachDose4);
         SendKeysWhenValueNotEmpty("useDate_4", healthFormData.MedicineUseDate4);
-        SelectOptionWhenNoSelected("medicineYield4", OptionOfMedicineYield(healthFormData.MedicineYield4));
+        var yieldOption4 = OptionOfMedicineYield(healthFormData.MedicineYield4);
+        if (!string.IsNullOrWhiteSpace(yieldOption4))
+        {
+            SelectOptionWhenNoSelected("medicineYield4", yieldOption4);
+        }
 
         SelectOptionWhenNoSelected("nonimmuneFlag", "n");
 
