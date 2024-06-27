@@ -36,8 +36,6 @@ public class HealthFormImporter : IFileImport, IListDataImport<HealthFormData>
                 Console.WriteLine(e.ToString());
                 Logger.Info($"{healthFormData.Name}-{healthFormData.Id}导入异常");
             }
-
-            break;
         }
     }
 
@@ -229,7 +227,6 @@ public class HealthFormImporter : IFileImport, IListDataImport<HealthFormData>
             SendKeysWhenValueNotEmpty("abnormality1", healthFormData.Abnormality1);
             SendKeysWhenValueNotEmpty("abnormality2", healthFormData.Abnormality2);
             SendKeysWhenValueNotEmpty("abnormality3", healthFormData.Abnormality3);
-            SendKeysWhenValueNotEmpty("abnormality4", healthFormData.Abnormality4);
         }
         else
         {
@@ -288,6 +285,9 @@ public class HealthFormImporter : IFileImport, IListDataImport<HealthFormData>
             SelectOptionWhenNoSelected("riskfactorsControl", "7");
             SendKeysWhenValueNotEmpty("pjOther", healthFormData.OtherSuggestion);
         }
+        Browser.ClickByXpath("//button[text()='确定(F1)']");
+        Thread.Sleep(1000);
+        Browser.ClickById("CLOSE");
     }
 
     private static string OptionOfMedicineYield(string medicineYield)
