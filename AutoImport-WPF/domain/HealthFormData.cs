@@ -1,7 +1,4 @@
-﻿using System.Globalization;
-using NPOI.SS.UserModel;
-
-namespace AutoImport_WPF.domain;
+﻿namespace AutoImport_WPF.domain;
 
 public class HealthFormData(ExcelRow row) : ExcelRowData(row)
 {
@@ -103,6 +100,61 @@ public class HealthFormData(ExcelRow row) : ExcelRowData(row)
     private string SuggestedReview => base[110];
 
     private string SuggestedReferral => base[111];
+
+    private string QuitSmoking => base[112];
+
+    private string HealthDrinking => base[113];
+
+    private string Diet => base[114];
+
+    private string Exercise => base[115];
+
+    private string LostWeight => base[116];
+
+    public string TargetWeight => base[117];
+
+    private string SuggestedVaccination => base[118];
+
+    public string Vaccination => base[119];
+
+    private string Other => base[120];
+
+    public string OtherSuggestion => base[121];
+
+    public bool HasOther()
+    {
+        return !string.IsNullOrWhiteSpace(Other);
+    }
+
+    public bool IsSuggestedVaccination()
+    {
+        return !string.IsNullOrWhiteSpace(SuggestedVaccination);
+    }
+
+    public bool IsNeedLostWeight()
+    {
+        return !string.IsNullOrWhiteSpace(LostWeight);
+    }
+
+    public bool IsNeedExercise()
+    {
+        return !string.IsNullOrWhiteSpace(Exercise);
+    }
+
+    public bool IsNeedDiet()
+    {
+        return !string.IsNullOrWhiteSpace(Diet);
+    }
+
+    public bool IsNeedHealthDrinking()
+    {
+        return !string.IsNullOrWhiteSpace(HealthDrinking);
+    }
+
+    public bool IsNeedQuitSmoking()
+    {
+        return !string.IsNullOrWhiteSpace(QuitSmoking);
+    }
 
     public bool IsSuggestReferral()
     {

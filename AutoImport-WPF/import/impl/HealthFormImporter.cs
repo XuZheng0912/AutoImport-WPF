@@ -28,6 +28,7 @@ public class HealthFormImporter : IFileImport, IListDataImport<HealthFormData>
             try
             {
                 Import(healthFormData);
+                break;
             }
             catch (Exception)
             {
@@ -222,6 +223,44 @@ public class HealthFormImporter : IFileImport, IListDataImport<HealthFormData>
         if (healthFormData.IsSuggestReferral())
         {
             SelectOptionWhenNoSelected("mana", "3");
+        }
+
+        if (healthFormData.IsNeedQuitSmoking())
+        {
+            SelectOptionWhenNoSelected("riskfactorsControl", "1");
+        }
+
+        if (healthFormData.IsNeedHealthDrinking())
+        {
+            SelectOptionWhenNoSelected("riskfactorsControl", "2");
+        }
+
+        if (healthFormData.IsNeedDiet())
+        {
+            SelectOptionWhenNoSelected("riskfactorsControl", "3");
+        }
+
+        if (healthFormData.IsNeedExercise())
+        {
+            SelectOptionWhenNoSelected("riskfactorsControl", "4");
+        }
+
+        if (healthFormData.IsNeedLostWeight())
+        {
+            SelectOptionWhenNoSelected("riskfactorsControl", "5");
+            SendKeysWhenValueNotEmpty("targetWeight", healthFormData.TargetWeight);
+        }
+
+        if (healthFormData.IsSuggestedVaccination())
+        {
+            SelectOptionWhenNoSelected("riskfactorsControl", "6");
+            SendKeysWhenValueNotEmpty("vaccine", healthFormData.Vaccination);
+        }
+
+        if (healthFormData.HasOther())
+        {
+            SelectOptionWhenNoSelected("riskfactorsControl", "7");
+            SendKeysWhenValueNotEmpty("pjOther", healthFormData.OtherSuggestion);
         }
     }
 
