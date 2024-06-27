@@ -118,6 +118,9 @@ public class HealthFormImporter : IFileImport, IListDataImport<HealthFormData>
         SendKeysWhenValueNotEmpty("heartRate", healthFormData.HeartRate);
         SelectOptionWhenAllNoSelected("rhythm", "1");
         SelectOptionWhenAllNoSelected("heartMurmur", "1");
+        
+        Browser.ScrollTo("abdominAltend");
+        
         SelectOptionWhenAllNoSelected("abdominAltend", "1");
         SelectOptionWhenAllNoSelected("adbominAlmass", "1");
         SelectOptionWhenAllNoSelected("liverBig", "1");
