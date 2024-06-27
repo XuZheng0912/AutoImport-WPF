@@ -17,7 +17,8 @@ public class HealthFormImporter : IFileImport, IListDataImport<HealthFormData>
 
     public void Import(string filename)
     {
-        var healthFormDataList = ReadFromExcelFile(filename);
+        var excelDataList = ReadFromExcelFile(filename);
+        var healthFormDataList = excelDataList.GetRange(3, excelDataList.Count - 3);
         Import(healthFormDataList);
     }
 
@@ -35,6 +36,7 @@ public class HealthFormImporter : IFileImport, IListDataImport<HealthFormData>
                 Console.WriteLine(e.ToString());
                 Logger.Info($"{healthFormData.Name}-{healthFormData.Id}导入异常");
             }
+
             break;
         }
     }
