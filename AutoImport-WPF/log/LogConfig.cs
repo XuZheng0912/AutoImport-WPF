@@ -7,5 +7,5 @@ public static class LogConfig
 {
     public static ILogger Logger { get; set; } = new ConsoleLogger();
 
-    public static LogLevel LogLevel => LogLevel.Info;
+    public static LogLevel LogLevel => LogLevel.Debug;
 }

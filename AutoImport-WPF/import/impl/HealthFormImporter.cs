@@ -1,4 +1,5 @@
-﻿using AutoImport_WPF.browser;
+﻿using System.Diagnostics;
+using AutoImport_WPF.browser;
 using AutoImport_WPF.config;
 using AutoImport_WPF.context;
 using AutoImport_WPF.domain;
@@ -28,12 +29,13 @@ public class HealthFormImporter : IFileImport, IListDataImport<HealthFormData>
             try
             {
                 Import(healthFormData);
-                break;
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Console.WriteLine(e.ToString());
                 Logger.Info($"{healthFormData.Name}-{healthFormData.Id}导入异常");
             }
+            break;
         }
     }
 
