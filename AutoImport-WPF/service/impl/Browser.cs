@@ -10,7 +10,7 @@ public class Browser(IWebDriver webDriver) : IBrowser
 {
     private static ILogger Logger => LogConfig.Logger;
 
-    private readonly WebDriverWait _wait = new(webDriver, TimeSpan.FromSeconds(0.5));
+    private readonly WebDriverWait _wait = new(webDriver, TimeSpan.FromSeconds(1));
 
     public bool IsOptionSelected(string name)
     {
