@@ -2,6 +2,7 @@
 
 public class HealthFormData(ExcelRow row) : ExcelRowData(row)
 {
+    private readonly ExcelRow _row = row;
     public string Name => base[2];
 
     public string Id => base[6];
@@ -111,7 +112,7 @@ public class HealthFormData(ExcelRow row) : ExcelRowData(row)
 
     private string LostWeight => base[116];
 
-    public string TargetWeight => base[117];
+    public double TargetWeight => _row.GetNumberValue(117);
 
     private string SuggestedVaccination => base[118];
 

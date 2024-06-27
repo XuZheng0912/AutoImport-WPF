@@ -25,17 +25,17 @@ public static class Environment
         ];
         foreach (string browserKey in browserKeys)
         {
-            using (RegistryKey key = Registry.LocalMachine.OpenSubKey(browserKey))
+            using (RegistryKey? key = Registry.LocalMachine.OpenSubKey(browserKey))
             {
                 if (key != null)
                 {
-                    foreach (string subkeyName in key.GetSubKeyNames())
+                    foreach (string subKeyName in key.GetSubKeyNames())
                     {
-                        using (RegistryKey subkey = key.OpenSubKey(subkeyName))
+                        using (RegistryKey? subKey = key.OpenSubKey(subKeyName))
                         {
-                            if (subkey != null)
+                            if (subKey != null)
                             {
-                                string browserName = (string)subkey.GetValue(null);
+                                var browserName = (string)subKey.GetValue(null)!;
                                 Logger.Debug($"{browserName} is installed.");
                             }
                         }

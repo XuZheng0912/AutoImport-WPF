@@ -274,7 +274,7 @@ public class HealthFormImporter : IFileImport, IListDataImport<HealthFormData>
         if (healthFormData.IsNeedLostWeight())
         {
             SelectOptionWhenNoSelected("riskfactorsControl", "5");
-            SendKeysWhenValueNotEmpty("targetWeight", healthFormData.TargetWeight);
+            SendKeysWhenValueNotEmpty("targetWeight", healthFormData.TargetWeight.ToString("0.0"));
         }
 
         if (healthFormData.IsSuggestedVaccination())
