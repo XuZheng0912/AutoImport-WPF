@@ -209,17 +209,17 @@ public class HealthFormData(ExcelRow row) : ExcelRowData(row)
 
     public bool IsElder()
     {
-        return IsCellNullOrWhiteSpace(7);
+        return !IsCellNullOrWhiteSpace(7);
     }
 
     public bool IsHypertension()
     {
-        return IsCellNullOrWhiteSpace(8);
+        return !IsCellNullOrWhiteSpace(8);
     }
 
     public bool IsDiabetes()
     {
-        return IsCellNullOrWhiteSpace(9);
+        return !IsCellNullOrWhiteSpace(9);
     }
 
     private bool IsCellNullOrWhiteSpace(int col)

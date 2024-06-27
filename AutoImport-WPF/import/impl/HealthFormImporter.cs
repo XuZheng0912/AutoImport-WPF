@@ -18,7 +18,7 @@ public class HealthFormImporter : IFileImport, IListDataImport<HealthFormData>
     public void Import(string filename)
     {
         var excelDataList = ReadFromExcelFile(filename);
-        var healthFormDataList = excelDataList.GetRange(3, excelDataList.Count - 3);
+        var healthFormDataList = excelDataList.GetRange(2, excelDataList.Count - 2);
         Import(healthFormDataList);
     }
 
@@ -60,8 +60,9 @@ public class HealthFormImporter : IFileImport, IListDataImport<HealthFormData>
             "/html/body/div[1]/div/div/div[2]/table/tbody/tr[1]/td[3]/div/div[2]/div/div[1]/div[2]/div[1]/div/div/div/div[2]/div/div/div/div/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div/div[2]/div/div[1]/div[2]/div"
         ];
         Browser.DoubleClickByPossibleXpath(possibleSearchResultXpathList);
+        Thread.Sleep(1000);
         Browser.ClickByXpath("//button[text()='新建(F2)']");
-
+        Thread.Sleep(500);
         if (healthFormData.IsElder())
         {
             SelectOptionWhenNoSelected("checkWay", "2");
