@@ -35,6 +35,7 @@ public class HealthFormImporter : IFileImport, IListDataImport<HealthFormData>
             {
                 Console.WriteLine(e.ToString());
                 Logger.Info($"{healthFormData.Name}-{healthFormData.Id}导入异常");
+                ReadyForImport();
             }
         }
     }
