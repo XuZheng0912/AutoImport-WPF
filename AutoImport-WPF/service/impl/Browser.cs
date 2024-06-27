@@ -2,6 +2,7 @@
 using AutoImport_WPF.log;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
+using OpenQA.Selenium.Support.Extensions;
 using OpenQA.Selenium.Support.UI;
 
 namespace AutoImport_WPF.service.impl;
@@ -11,6 +12,12 @@ public class Browser(IWebDriver webDriver) : IBrowser
     private static ILogger Logger => LogConfig.Logger;
 
     private readonly WebDriverWait _wait = new(webDriver, TimeSpan.FromSeconds(3));
+
+    public void ScrollTo(string name)
+    {
+        webDriver.ExecuteJavaScript("arguments[0].scrollIntoView();",
+            [webDriver.FindElement(By.Name(name))]);
+    }
 
     public bool IsOptionSelected(string name)
     {
