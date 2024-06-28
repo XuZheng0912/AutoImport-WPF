@@ -57,7 +57,18 @@ public class HealthFormData(ExcelRow row) : ExcelRowData(row)
 
     private string OtherSystemDiseaseResult => base[94];
 
-    public string OtherSystemDisease => base[95];
+    public string OtherSystemDisease
+    {
+        get
+        {
+            if (IsDiabetes() && IsHypertension())
+            {
+                return "高血压，糖尿病";
+            }
+
+            return IsDiabetes() ? "糖尿病" : "高血压";
+        }
+    }
 
     public string Medicine1 => base[122];
 

@@ -18,7 +18,7 @@ public class HealthFormImporter : IFileImport, IListDataImport<HealthFormData>
     public void Import(string filename)
     {
         var excelDataList = ReadFromExcelFile(filename);
-        var healthFormDataList = excelDataList.GetRange(2, excelDataList.Count - 2);
+        var healthFormDataList = excelDataList.GetRange(1, excelDataList.Count - 1);
         Import(healthFormDataList);
     }
 
@@ -57,9 +57,13 @@ public class HealthFormImporter : IFileImport, IListDataImport<HealthFormData>
         Thread.Sleep(500);
         Browser.ClickByXpath("//button[text()='新建(F1)']");
         Thread.Sleep(500);
-        Browser.SendKeys(By.XPath("/html/body/div[11]/div[2]/div[1]/div/div/div/div/div[2]/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div/form/table/tbody/tr[3]/td[2]/div/div[1]/input"), healthFormData.Id);
+        Browser.SendKeys(
+            By.XPath(
+                "/html/body/div[11]/div[2]/div[1]/div/div/div/div/div[2]/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div/form/table/tbody/tr[3]/td[2]/div/div[1]/input"),
+            healthFormData.Id);
+        Thread.Sleep(800);
         Browser.ClickByXpath("//button[text()='确定']");
-        Thread.Sleep(500);
+        Thread.Sleep(800);
         Browser.ClearByName("checkDate");
         Browser.SendKeysByName("checkDate", healthFormData.Date);
         if (healthFormData.IsElder())
@@ -79,7 +83,7 @@ public class HealthFormImporter : IFileImport, IListDataImport<HealthFormData>
 
         SelectOptionWhenNoSelected("symptom", "01");
         SendKeysWhenInputEmpty("temperature", healthFormData.Temperature);
-        SendKeysWhenInputEmpty("pulse", healthFormData.PulseRate);
+        SendKeysWhenInputEmpty("pulse", healthFormData.HeartRate);
         SendKeysWhenInputEmpty("breathe", healthFormData.BreathRate);
         SendKeysWhenValueNotEmpty("constriction", healthFormData.RightConstriction);
         SendKeysWhenValueNotEmpty("diastolic", healthFormData.RightDiastolic);
@@ -89,10 +93,14 @@ public class HealthFormImporter : IFileImport, IListDataImport<HealthFormData>
         SendKeysWhenInputEmpty("weight", healthFormData.Weight);
         SendKeysWhenInputEmpty("waistline", healthFormData.Waistline);
 
-        SelectOptionWhenAllNoSelected("healthStatus", "1");
-        SelectOptionWhenAllNoSelected("selfCare", "1");
-        SelectOptionWhenAllNoSelected("cognitive", "1");
-        SelectOptionWhenAllNoSelected("emotion", "1");
+        if (healthFormData.IsElder())
+        {
+            SelectOptionWhenAllNoSelected("healthStatus", "1");
+            SelectOptionWhenAllNoSelected("selfCare", "1");
+        }
+
+        // SelectOptionWhenAllNoSelected("cognitive", "1");
+        // SelectOptionWhenAllNoSelected("emotion", "1");
 
         SelectOptionWhenAllNoSelected("physicalExerciseFrequency", "4");
         SelectOptionWhenAllNoSelected("dietaryHabit", "1");
@@ -127,37 +135,42 @@ public class HealthFormImporter : IFileImport, IListDataImport<HealthFormData>
         SelectOptionWhenAllNoSelected("dullness", "1");
         SelectOptionWhenAllNoSelected("edema", "1");
 
-        SendKeysWhenInputEmpty("fbs",healthFormData.FastingBloodGlucose);
-        
-        if (healthFormData.IsEcgNormal())
+        if (healthFormData.IsDiabetes())
         {
-            SelectOptionWhenNoSelected("ecg", "1");
-        }
-        else
-        {
-            SelectOptionWhenNoSelected("ecg", "2");
-            SendKeysWhenValueNotEmpty("ecgText", healthFormData.EcgAbnormal);
+            SelectOptionWhenNoSelected("footPulse", "2");
         }
 
-        if (healthFormData.IsChestXrayNormal())
-        {
-            SelectOptionWhenNoSelected("x", "1");
-        }
-        else
-        {
-            SelectOptionWhenNoSelected("x", "2");
-            SendKeysWhenValueNotEmpty("xText", healthFormData.ChestXrayAbnormal);
-        }
+        SendKeysWhenInputEmpty("fbs", healthFormData.FastingBloodGlucose);
 
-        if (healthFormData.IsBUltrasonicNormal())
-        {
-            SelectOptionWhenNoSelected("b", "1");
-        }
-        else
-        {
-            SelectOptionWhenNoSelected("b", "2");
-            SendKeysWhenValueNotEmpty("bText", healthFormData.BUltrasonicAbnormal);
-        }
+        // if (healthFormData.IsEcgNormal())
+        // {
+        //     SelectOptionWhenNoSelected("ecg", "1");
+        // }
+        // else
+        // {
+        //     SelectOptionWhenNoSelected("ecg", "2");
+        //     SendKeysWhenValueNotEmpty("ecgText", healthFormData.EcgAbnormal);
+        // }
+
+        // if (healthFormData.IsChestXrayNormal())
+        // {
+        //     SelectOptionWhenNoSelected("x", "1");
+        // }
+        // else
+        // {
+        //     SelectOptionWhenNoSelected("x", "2");
+        //     SendKeysWhenValueNotEmpty("xText", healthFormData.ChestXrayAbnormal);
+        // }
+        //
+        // if (healthFormData.IsBUltrasonicNormal())
+        // {
+        //     SelectOptionWhenNoSelected("b", "1");
+        // }
+        // else
+        // {
+        //     SelectOptionWhenNoSelected("b", "2");
+        //     SendKeysWhenValueNotEmpty("bText", healthFormData.BUltrasonicAbnormal);
+        // }
 
         SelectOptionWhenAllNoSelected("cerebrovascularDiseases", "1");
         SelectOptionWhenAllNoSelected("kidneyDiseases", "1");
@@ -165,8 +178,9 @@ public class HealthFormImporter : IFileImport, IListDataImport<HealthFormData>
         SelectOptionWhenAllNoSelected("VascularDisease", "1");
         SelectOptionWhenAllNoSelected("eyeDiseases", "1");
         SelectOptionWhenAllNoSelected("neurologicalDiseases", "1");
-
-        if (healthFormData.HasOtherSystemDisease())
+        
+        
+        if (healthFormData.IsDiabetes() || healthFormData.IsHypertension())
         {
             SelectOptionWhenNoSelected("otherDiseasesone", "2");
             SendKeysWhenValueNotEmpty("otherDiseasesoneDesc", healthFormData.OtherSystemDisease);
@@ -191,7 +205,7 @@ public class HealthFormImporter : IFileImport, IListDataImport<HealthFormData>
         {
             SelectOptionWhenNoSelected("medicineYield1", yieldOption1);
         }
-        
+
         SendKeysWhenValueNotEmpty("medicine_2_FD6PV", healthFormData.Medicine2);
         SendKeysWhenValueNotEmpty("use_2", healthFormData.MedicineUse2);
         SendKeysWhenValueNotEmpty("eachDose_2", healthFormData.MedicineEachDose2);
@@ -201,7 +215,7 @@ public class HealthFormImporter : IFileImport, IListDataImport<HealthFormData>
         {
             SelectOptionWhenNoSelected("medicineYield2", yieldOption2);
         }
-        
+
         SendKeysWhenValueNotEmpty("medicine_3_FD6PV", healthFormData.Medicine3);
         SendKeysWhenValueNotEmpty("use_3", healthFormData.MedicineUse3);
         SendKeysWhenValueNotEmpty("eachDose_3", healthFormData.MedicineEachDose3);
@@ -288,13 +302,14 @@ public class HealthFormImporter : IFileImport, IListDataImport<HealthFormData>
             SelectOptionWhenNoSelected("riskfactorsControl", "7");
             SendKeysWhenValueNotEmpty("pjOther", healthFormData.OtherSuggestion);
         }
+
         Browser.ClickByXpath("//button[text()='确定(F1)']");
         Thread.Sleep(1000);
         Browser.ClickById("CLOSE");
     }
 
     
-    
+
     private static string OptionOfMedicineYield(string medicineYield)
     {
         var trim = medicineYield.Trim();

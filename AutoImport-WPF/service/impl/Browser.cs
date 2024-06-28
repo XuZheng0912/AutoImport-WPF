@@ -145,7 +145,19 @@ public class Browser(IWebDriver webDriver) : IBrowser
 
     public void Click(By by)
     {
-        WaitFindElement(by).Click();
+        _wait.Until(driver =>
+        {
+            try
+            {
+                webDriver.FindElement(by).Click();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
+        });
     }
 
     public void ClickByText(string htmlText)
