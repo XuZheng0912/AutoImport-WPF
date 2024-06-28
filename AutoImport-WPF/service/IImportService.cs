@@ -5,4 +5,6 @@ public interface IImportService
     void ImportHealthForm(string fileName);
 
     void ImportContract(string fileName);
+
+    void SaveContract(string fileName);
 }

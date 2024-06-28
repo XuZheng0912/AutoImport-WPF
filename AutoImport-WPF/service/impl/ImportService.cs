@@ -16,4 +16,10 @@ public class ImportService : IImportService
         var importer = new ContractImporter();
         importer.Import(fileName);
     }
+
+    public void SaveContract(string fileName)
+    {   
+        var importer = new ContractSaver();
+        importer.Import(fileName);
+    }
 }

@@ -175,4 +175,18 @@ public partial class MainWindow
     {
         Application.Current.Shutdown();
     }
+
+    private async void SaveContractButton_OnClick(object sender, RoutedEventArgs e)
+    {
+        var beforeHandler = BeforeHandleImportButtonClick();
+        if (beforeHandler != null)
+        {
+            beforeHandler();
+            return;
+        }
+
+        Logger.Info("开始导入签约服务数据");
+        await Task.Run(() => ImportServiceProvider.GetImportService().SaveContract(ApplicationContext.FileName));
+        Logger.Info("导入签约服务数据结束");
+    }
 }
