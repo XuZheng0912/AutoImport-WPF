@@ -19,8 +19,10 @@ public class Browser(IWebDriver webDriver) : IBrowser
             [webDriver.FindElement(By.Name(name))]);
     }
 
-    public void ClickFirstByXpath(string xpath)
+    public void DoubleClickFirstByXpath(string xpath)
     {
+        
+        
         webDriver.FindElements(By.XPath(xpath)).First().Click();
     }
 
