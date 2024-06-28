@@ -48,7 +48,7 @@
         <!-- 导入体检表 -->
         <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Name="ImportHealthFormButton"
                 Click="ImportHealthFormButton_OnClick"
-                Content="导入体检表"
+                Content="新建体检表"
                 Width="380"
                 Height="30"
                 Margin="10" />
