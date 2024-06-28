@@ -3,6 +3,14 @@
 public class HealthFormData(ExcelRow row) : ExcelRowData(row)
 {
     private readonly ExcelRow _row = row;
+
+    public string Date => ToY_M_D(base[1]);
+
+    private static string ToY_M_D(string dateStr)
+    {
+        return DateTime.Parse(dateStr).ToString("yyyy-MM-dd");
+    }
+
     public string Name => base[2];
 
     public string Id => base[6];
@@ -21,6 +29,8 @@ public class HealthFormData(ExcelRow row) : ExcelRowData(row)
 
     public string LeftDiastolic => base[44];
 
+    public string FastingBloodGlucose => base[51];
+    
     public string Height => base[80];
 
     public string Weight => base[81];

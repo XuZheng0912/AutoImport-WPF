@@ -62,6 +62,8 @@ public class HealthFormImporter : IFileImport, IListDataImport<HealthFormData>
         Thread.Sleep(1500);
         Browser.ClickByXpath("//button[text()='新建(F2)']");
         Thread.Sleep(500);
+        Browser.ClearByName("checkDate");
+        Browser.SendKeysByName("checkDate", healthFormData.Date);
         if (healthFormData.IsElder())
         {
             SelectOptionWhenNoSelected("checkWay", "2");
@@ -127,6 +129,8 @@ public class HealthFormImporter : IFileImport, IListDataImport<HealthFormData>
         SelectOptionWhenAllNoSelected("dullness", "1");
         SelectOptionWhenAllNoSelected("edema", "1");
 
+        SendKeysWhenInputEmpty("fbs",healthFormData.FastingBloodGlucose);
+        
         if (healthFormData.IsEcgNormal())
         {
             SelectOptionWhenNoSelected("ecg", "1");
