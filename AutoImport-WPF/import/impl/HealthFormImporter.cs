@@ -55,8 +55,9 @@ public class HealthFormImporter : IFileImport, IListDataImport<HealthFormData>
         Thread.Sleep(500);
         List<string> possibleSearchResultXpathList =
         [
+            "/html/body/div[1]/div/div/div[2]/table/tbody/tr[1]/td[3]/div/div[2]/div/div[1]/div[2]/div[1]/div/div/div/div[2]/div/div/div/div/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div/div[2]/div/div[1]/div[2]/div",
             "/html/body/div[2]/div/div/div[2]/table/tbody/tr[1]/td[3]/div/div[2]/div/div/div[2]/div[1]/div/div/div/div[2]/div/div/div/div/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div/div[2]/div/div[1]/div[2]/div",
-            "/html/body/div[1]/div/div/div[2]/table/tbody/tr[1]/td[3]/div/div[2]/div/div[1]/div[2]/div[1]/div/div/div/div[2]/div/div/div/div/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div/div[2]/div/div[1]/div[2]/div"
+            "/html/body/div[1]/div/div/div[2]/table/tbody/tr[1]/td[3]/div/div[2]/div/div[3]/div[2]/div[1]/div/div/div/div[2]/div/div/div/div/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div/div[2]/div/div[1]/div[2]/div/div[1]"
         ];
         Browser.DoubleClickByPossibleXpath(possibleSearchResultXpathList);
         Thread.Sleep(1500);
@@ -85,8 +86,8 @@ public class HealthFormImporter : IFileImport, IListDataImport<HealthFormData>
         SendKeysWhenInputEmpty("breathe", healthFormData.BreathRate);
         SendKeysWhenValueNotEmpty("constriction", healthFormData.RightConstriction);
         SendKeysWhenValueNotEmpty("diastolic", healthFormData.RightDiastolic);
-        SendKeysWhenValueNotEmpty("constriction_L", healthFormData.LeftConstriction);
-        SendKeysWhenValueNotEmpty("diastolic_L", healthFormData.LeftDiastolic);
+        SendKeysWhenValueNotEmpty("constriction_L", healthFormData.LeftConstriction.ToString("0"));
+        SendKeysWhenValueNotEmpty("diastolic_L", healthFormData.LeftDiastolic.ToString("0"));
         SendKeysWhenInputEmpty("height", healthFormData.Height);
         SendKeysWhenInputEmpty("weight", healthFormData.Weight);
         SendKeysWhenInputEmpty("waistline", healthFormData.Waistline);

@@ -25,9 +25,9 @@ public class HealthFormData(ExcelRow row) : ExcelRowData(row)
 
     public string RightDiastolic => base[42];
 
-    public string LeftConstriction => base[43];
+    public double LeftConstriction => _row.GetNumberValue(43);
 
-    public string LeftDiastolic => base[44];
+    public double LeftDiastolic => _row.GetNumberValue(44);
 
     public string FastingBloodGlucose => base[51];
     
