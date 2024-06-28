@@ -22,8 +22,21 @@ public class Browser(IWebDriver webDriver) : IBrowser
     public void DoubleClickFirstByXpath(string xpath)
     {
         var actions = new Actions(webDriver);
-        var webElement = webDriver.FindElements(By.XPath(xpath)).First();
-        actions.DoubleClick(webElement).Perform();
+
+        _wait.Until(driver =>
+        {
+            try
+            {
+                var webElement = webDriver.FindElements(By.XPath(xpath)).First();
+                actions.DoubleClick(webElement).Perform();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
+        });
     }
 
     public bool IsOptionSelected(string name)

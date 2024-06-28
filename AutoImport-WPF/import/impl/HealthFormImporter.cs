@@ -27,17 +27,16 @@ public class HealthFormImporter : IFileImport, IListDataImport<HealthFormData>
         ReadyForImport();
         foreach (var healthFormData in dataList)
         {
-            Import(healthFormData);
-            // try
-            // {
-            //     Import(healthFormData);
-            // }
-            // catch (Exception e)
-            // {
-            //     Console.WriteLine(e.ToString());
-            //     Logger.Info($"{healthFormData.Name}-{healthFormData.Id}导入异常");
-            //     ReadyForImport();
-            // }
+            try
+            {
+                Import(healthFormData);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                Logger.Info($"{healthFormData.Name}-{healthFormData.Id}导入异常");
+                ReadyForImport();
+            }
         }
     }
 

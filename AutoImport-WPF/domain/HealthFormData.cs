@@ -29,13 +29,13 @@ public class HealthFormData(ExcelRow row) : ExcelRowData(row)
 
     public double LeftDiastolic => _row.GetNumberValue(44);
 
-    public string FastingBloodGlucose => base[51];
+    public string FastingBloodGlucose => _row.GetNumberValue(51).ToString("0.0");
     
-    public string Height => base[80];
+    public string Height => _row.GetNumberValue(80).ToString("0");
 
     public string Weight => base[81];
 
-    public string Waistline => base[82];
+    public string Waistline => _row.GetNumberValue(82).ToString("0");
 
     public string LeftEye => RandomEyeSight();
 
