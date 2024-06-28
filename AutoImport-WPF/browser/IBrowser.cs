@@ -6,7 +6,7 @@ namespace AutoImport_WPF.browser;
 public interface IBrowser
 {
     void Get(string url);
-
+    
     void DoubleClickFirstByXpath(string xpath);
     
     void ScrollTo(string name);
