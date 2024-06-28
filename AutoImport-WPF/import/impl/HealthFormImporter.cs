@@ -53,13 +53,7 @@ public class HealthFormImporter : IFileImport, IListDataImport<HealthFormData>
             "/html/body/div[2]/div/div/div[2]/table/tbody/tr[1]/td[3]/div/div[2]/div/div/div[2]/div[1]/div/div/div/div[2]/div/div/div/div/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div/div[1]/div/table/tbody/tr/td[1]/table/tbody/tr/td[5]/table/tbody/tr[2]/td[2]/em/button"
         ]);
         Thread.Sleep(500);
-        List<string> possibleSearchResultXpathList =
-        [
-            "/html/body/div[1]/div/div/div[2]/table/tbody/tr[1]/td[3]/div/div[2]/div/div[1]/div[2]/div[1]/div/div/div/div[2]/div/div/div/div/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div/div[2]/div/div[1]/div[2]/div",
-            "/html/body/div[2]/div/div/div[2]/table/tbody/tr[1]/td[3]/div/div[2]/div/div/div[2]/div[1]/div/div/div/div[2]/div/div/div/div/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div/div[2]/div/div[1]/div[2]/div",
-            "/html/body/div[1]/div/div/div[2]/table/tbody/tr[1]/td[3]/div/div[2]/div/div[3]/div[2]/div[1]/div/div/div/div[2]/div/div/div/div/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div/div[2]/div/div[1]/div[2]/div/div[1]"
-        ];
-        Browser.DoubleClickByPossibleXpath(possibleSearchResultXpathList);
+        Browser.ClickFirstByXpath("/html/body/div[1]/div/div/div[2]/table/tbody/tr[1]/td[3]/div/div[2]/div/div/div[2]/div[1]/div/div/div/div[2]/div/div/div/div/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div/div[2]/div/div[1]/div[2]/div/div");
         Thread.Sleep(1500);
         Browser.ClickByXpath("//button[text()='新建(F2)']");
         Thread.Sleep(500);
@@ -296,6 +290,8 @@ public class HealthFormImporter : IFileImport, IListDataImport<HealthFormData>
         Browser.ClickById("CLOSE");
     }
 
+    
+    
     private static string OptionOfMedicineYield(string medicineYield)
     {
         var trim = medicineYield.Trim();

@@ -19,6 +19,11 @@ public class Browser(IWebDriver webDriver) : IBrowser
             [webDriver.FindElement(By.Name(name))]);
     }
 
+    public void ClickFirstByXpath(string xpath)
+    {
+        webDriver.FindElements(By.XPath(xpath)).First().Click();
+    }
+
     public bool IsOptionSelected(string name)
     {
         var webElements = webDriver.FindElements(By.Name(name));

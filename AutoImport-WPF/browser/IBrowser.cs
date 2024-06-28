@@ -7,6 +7,8 @@ public interface IBrowser
 {
     void Get(string url);
 
+    void ClickFirstByXpath(string xpath);
+    
     void ScrollTo(string name);
     
     string GetInputValueByName(string name);
