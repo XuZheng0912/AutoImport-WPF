@@ -16,7 +16,7 @@ public class HealthFormData(ExcelRow row) : ExcelRowData(row)
     public string Id => base[5];
 
     public string Temperature => RandomTemperature();
-    
+
     public string BreathRate => RandomBreathRate();
 
     public string RightConstriction => base[12];
@@ -28,7 +28,7 @@ public class HealthFormData(ExcelRow row) : ExcelRowData(row)
     public string LeftDiastolic => base[11];
 
     public string FastingBloodGlucose => base[14];
-    
+
     public string Height => base[15];
 
     public string Weight => base[16];
@@ -68,45 +68,45 @@ public class HealthFormData(ExcelRow row) : ExcelRowData(row)
         }
     }
 
-    public string Medicine1 => base[57];
+    public string Medicine1 => base[55];
 
-    public string MedicineUse1 => base[58];
+    public string MedicineUse1 => base[56];
 
-    public string MedicineEachDose1 => base[59];
+    public string MedicineEachDose1 => base[57];
 
-    public string MedicineUseDate1 => base[60];
+    public string MedicineUseDate1 => base[58];
 
-    public string MedicineYield1 => base[61];
+    public string MedicineYield1 => base[59];
 
-    public string Medicine2 => base[62];
+    public string Medicine2 => base[60];
 
-    public string MedicineUse2 => base[63];
+    public string MedicineUse2 => base[61];
 
-    public string MedicineEachDose2 => base[64];
+    public string MedicineEachDose2 => base[62];
 
-    public string MedicineUseDate2 => base[65];
+    public string MedicineUseDate2 => base[63];
 
-    public string MedicineYield2 => base[66];
+    public string MedicineYield2 => base[64];
 
-    public string Medicine3 => base[67];
+    public string Medicine3 => base[65];
 
-    public string MedicineUse3 => base[68];
+    public string MedicineUse3 => base[66];
 
-    public string MedicineEachDose3 => base[69];
+    public string MedicineEachDose3 => base[67];
 
-    public string MedicineUseDate3 => base[70];
+    public string MedicineUseDate3 => base[68];
 
-    public string MedicineYield3 => base[71];
+    public string MedicineYield3 => base[69];
 
-    public string Medicine4 => base[72];
+    public string Medicine4 => base[70];
 
-    public string MedicineUse4 => base[73];
+    public string MedicineUse4 => base[71];
 
-    public string MedicineEachDose4 => base[74];
+    public string MedicineEachDose4 => base[72];
 
-    public string MedicineUseDate4 => base[75];
+    public string MedicineUseDate4 => base[73];
 
-    public string MedicineYield4 => base[76];
+    public string MedicineYield4 => base[74];
 
     private string AbnormalResult => base[20];
 
@@ -115,37 +115,38 @@ public class HealthFormData(ExcelRow row) : ExcelRowData(row)
     // public string Abnormality3 => base[107];
     // public string Abnormality4 => base[108];
 
-    private string PutIntoAdministration => base[46];
+    private string PutIntoAdministration => base[44];
 
-    private string SuggestedReview => base[47];
+    private string SuggestedReview => base[45];
 
-    private string SuggestedReferral => base[48];
 
-    private string QuitSmoking => base[49];
+    private string SuggestedReferral => base[46];
 
-    private string HealthDrinking => base[50];
+    private string QuitSmoking => base[47];
 
-    private string Diet => base[51];
+    private string HealthDrinking => base[48];
 
-    private string Exercise => base[52];
+    private string Diet => base[49];
 
-    private string LostWeight => base[53];
+    private string Exercise => base[50];
 
-    public double TargetWeight => _row.GetNumberValue(54);
+    private string LostWeight => base[51];
+
+    public double TargetWeight => _row.GetNumberValue(52);
 
     // private string SuggestedVaccination => base[118];
 
     // public string Vaccination => base[119];
 
-    private string Other => base[55];
+    private string Other => base[53];
 
-    public string OtherSuggestion => base[56];
+    public string OtherSuggestion => base[54];
 
     public bool HasOther()
     {
         return !string.IsNullOrWhiteSpace(Other);
     }
-    
+
     public bool IsNeedLostWeight()
     {
         return !string.IsNullOrWhiteSpace(LostWeight);
@@ -178,7 +179,7 @@ public class HealthFormData(ExcelRow row) : ExcelRowData(row)
 
     public bool IsSuggestedReview()
     {
-        return !string.IsNullOrWhiteSpace(SuggestedReview);
+        return !string.IsNullOrWhiteSpace(base[21]) || !string.IsNullOrWhiteSpace(base[23]);
     }
 
     public bool IsPutIntoAdministration()
@@ -188,7 +189,7 @@ public class HealthFormData(ExcelRow row) : ExcelRowData(row)
 
     public bool HasAbnormal()
     {
-        return "有".Equals(AbnormalResult.Trim());
+        return !string.IsNullOrWhiteSpace(Abnormality1);
     }
 
     // public bool HasOtherSystemDisease()
