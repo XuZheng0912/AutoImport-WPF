@@ -92,8 +92,8 @@ public class HealthFormImporter : IFileImport, IListDataImport<HealthFormData>
         SendKeysWhenInputEmpty("breathe", healthFormData.BreathRate);
         SendKeysWhenValueNotEmpty("constriction", healthFormData.RightConstriction);
         SendKeysWhenValueNotEmpty("diastolic", healthFormData.RightDiastolic);
-        SendKeysWhenValueNotEmpty("constriction_L", healthFormData.LeftConstriction.ToString("0"));
-        SendKeysWhenValueNotEmpty("diastolic_L", healthFormData.LeftDiastolic.ToString("0"));
+        SendKeysWhenValueNotEmpty("constriction_L", healthFormData.LeftConstriction);
+        SendKeysWhenValueNotEmpty("diastolic_L", healthFormData.LeftDiastolic);
         SendKeysWhenInputEmpty("height", healthFormData.Height);
         SendKeysWhenInputEmpty("weight", healthFormData.Weight);
         SendKeysWhenInputEmpty("waistline", healthFormData.Waistline);
@@ -247,8 +247,8 @@ public class HealthFormImporter : IFileImport, IListDataImport<HealthFormData>
         {
             SelectOptionWhenNoSelected("abnormality", "2");
             SendKeysWhenValueNotEmpty("abnormality1", healthFormData.Abnormality1);
-            SendKeysWhenValueNotEmpty("abnormality2", healthFormData.Abnormality2);
-            SendKeysWhenValueNotEmpty("abnormality3", healthFormData.Abnormality3);
+            // SendKeysWhenValueNotEmpty("abnormality2", healthFormData.Abnormality2);
+            // SendKeysWhenValueNotEmpty("abnormality3", healthFormData.Abnormality3);
         }
         else
         {
@@ -296,10 +296,10 @@ public class HealthFormImporter : IFileImport, IListDataImport<HealthFormData>
             SendKeysWhenValueNotEmpty("targetWeight", healthFormData.TargetWeight.ToString("0.0"));
         }
 
-        if (healthFormData.IsSuggestedVaccination())
+        if (healthFormData.IsElder() || healthFormData.IsDiabetes())
         {
             SelectOptionWhenNoSelected("riskfactorsControl", "6");
-            SendKeysWhenValueNotEmpty("vaccine", healthFormData.Vaccination);
+            SendKeysWhenValueNotEmpty("vaccine", "流感，肺炎疫苗");
         }
 
         if (healthFormData.HasOther())
