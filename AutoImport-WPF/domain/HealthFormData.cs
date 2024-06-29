@@ -21,9 +21,9 @@ public class HealthFormData(ExcelRow row) : ExcelRowData(row)
 
     public string BreathRate => RandomBreathRate();
 
-    public string RightConstriction => base[41];
+    public string RightConstriction => _row.GetNumberValue(41).ToString("0");
 
-    public string RightDiastolic => base[42];
+    public string RightDiastolic => _row.GetNumberValue(42).ToString("0");
 
     public double LeftConstriction => _row.GetNumberValue(43);
 
@@ -33,7 +33,7 @@ public class HealthFormData(ExcelRow row) : ExcelRowData(row)
     
     public string Height => _row.GetNumberValue(80).ToString("0");
 
-    public string Weight => base[81];
+    public string Weight => _row.GetNumberValue(81).ToString("0");
 
     public string Waistline => _row.GetNumberValue(82).ToString("0");
 

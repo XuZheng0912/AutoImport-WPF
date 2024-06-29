@@ -25,18 +25,23 @@ public class HealthFormImporter : IFileImport, IListDataImport<HealthFormData>
     public void Import(List<HealthFormData> dataList)
     {
         ReadyForImport();
+        // foreach (var healthFormData in dataList)
+        // {
+        //     try
+        //     {
+        //         Import(healthFormData);
+        //     }
+        //     catch (Exception e)
+        //     {
+        //         Console.WriteLine(e.ToString());
+        //         Logger.Info($"{healthFormData.Name}-{healthFormData.Id}导入异常");
+        //         ReadyForImport();
+        //     }
+        // }
+
         foreach (var healthFormData in dataList)
         {
-            try
-            {
-                Import(healthFormData);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-                Logger.Info($"{healthFormData.Name}-{healthFormData.Id}导入异常");
-                ReadyForImport();
-            }
+            Import(healthFormData);
         }
     }
 
@@ -178,8 +183,8 @@ public class HealthFormImporter : IFileImport, IListDataImport<HealthFormData>
         SelectOptionWhenAllNoSelected("VascularDisease", "1");
         SelectOptionWhenAllNoSelected("eyeDiseases", "1");
         SelectOptionWhenAllNoSelected("neurologicalDiseases", "1");
-        
-        
+
+
         if (healthFormData.IsDiabetes() || healthFormData.IsHypertension())
         {
             SelectOptionWhenNoSelected("otherDiseasesone", "2");
@@ -308,7 +313,6 @@ public class HealthFormImporter : IFileImport, IListDataImport<HealthFormData>
         Browser.ClickById("CLOSE");
     }
 
-    
 
     private static string OptionOfMedicineYield(string medicineYield)
     {
