@@ -25,24 +25,24 @@ public class HealthFormImporter : IFileImport, IListDataImport<HealthFormData>
     public void Import(List<HealthFormData> dataList)
     {
         ReadyForImport();
-        // foreach (var healthFormData in dataList)
-        // {
-        //     try
-        //     {
-        //         Import(healthFormData);
-        //     }
-        //     catch (Exception e)
-        //     {
-        //         Console.WriteLine(e.ToString());
-        //         Logger.Info($"{healthFormData.Name}-{healthFormData.Id}导入异常");
-        //         ReadyForImport();
-        //     }
-        // }
-
         foreach (var healthFormData in dataList)
         {
-            Import(healthFormData);
+            try
+            {
+                Import(healthFormData);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                Logger.Info($"{healthFormData.Name}-{healthFormData.Id}导入异常");
+                ReadyForImport();
+            }
         }
+
+        // foreach (var healthFormData in dataList)
+        // {
+        //     Import(healthFormData);
+        // }
     }
 
     private static void Import(HealthFormData healthFormData)
@@ -309,7 +309,7 @@ public class HealthFormImporter : IFileImport, IListDataImport<HealthFormData>
         }
 
         Browser.ClickByXpath("//button[text()='确定(F1)']");
-        Thread.Sleep(1000);
+        Thread.Sleep(2000);
         Browser.ClickById("CLOSE");
     }
 

@@ -15,7 +15,7 @@ public abstract class ExcelDataReader<T> : IExcelListRead<T>
             var workbook = OpenExcel(fileName);
             var sheet = workbook.GetSheetAt(0);
             List<T> list = [];
-            for (var rowNum = 1; rowNum < sheet.LastRowNum; rowNum++)
+            for (var rowNum = 1; rowNum < sheet.LastRowNum + 1; rowNum++)
             {
                 var row = sheet.GetRow(rowNum);
                 list.Add(Build(new ExcelRow(row: row)));
