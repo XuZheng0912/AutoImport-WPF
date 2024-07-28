@@ -4,10 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="自动导入" Height="400" Width="415"
+        Title="自动导入" Height="480" Width="415"
         Closing="MainWindow_OnClosing">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -54,14 +55,21 @@
                 Height="30"
                 Margin="10" />
 
-        <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Name="ImportContractButton"
+        <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Name="CompleteHealthFormButton"
+                Click="CompleteHealthFormButton_OnClick"
+                Content="完善体检表"
+                Width="380"
+                Height="30"
+                Margin="10" />
+        
+        <Button Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Name="ImportContractButton"
                 Click="ImportContractButton_OnClick"
                 Content="导入签约服务"
                 Width="380"
                 Height="30"
                 Margin="10" />
         
-        <Button Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Name="SaveContractButton"
+        <Button Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Name="SaveContractButton"
                 Click="SaveContractButton_OnClick"
                 Content="档案保存"
                 Width="380"
@@ -69,7 +77,7 @@
                 Margin="10" />
         
         <!-- 开始导入按钮 -->
-        <Button Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Name="RefreshButton"
+        <Button Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Name="RefreshButton"
                 Click="RefreshButton_OnClick"
                 Content="刷新程序配置环境状态"
                 Width="380"

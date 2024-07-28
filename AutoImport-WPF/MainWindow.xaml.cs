@@ -189,4 +189,9 @@ public partial class MainWindow
         await Task.Run(() => ImportServiceProvider.GetImportService().SaveContract(ApplicationContext.FileName));
         Logger.Info("导入签约服务数据结束");
     }
+
+    private void CompleteHealthFormButton_OnClick(object sender, RoutedEventArgs e)
+    {
+        throw new NotImplementedException();
+    }
 }
