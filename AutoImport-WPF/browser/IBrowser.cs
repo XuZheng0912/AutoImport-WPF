@@ -5,12 +5,14 @@ namespace AutoImport_WPF.browser;
 
 public interface IBrowser
 {
+    IWebDriver WebDriver();
+
     void Get(string url);
-    
+
     void DoubleClickFirstByXpath(string xpath);
-    
+
     void ScrollTo(string name);
-    
+
     string GetInputValueByName(string name);
 
     void SelectByName(string name, string value);

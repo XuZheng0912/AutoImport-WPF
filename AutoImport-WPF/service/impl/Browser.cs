@@ -12,7 +12,12 @@ public class Browser(IWebDriver webDriver) : IBrowser
     private static ILogger Logger => LogConfig.Logger;
 
     private readonly WebDriverWait _wait = new(webDriver, TimeSpan.FromSeconds(3));
-    
+
+    public IWebDriver WebDriver()
+    {
+        return webDriver;
+    }
+
     public void ScrollTo(string name)
     {
         webDriver.ExecuteJavaScript("arguments[0].scrollIntoView();",

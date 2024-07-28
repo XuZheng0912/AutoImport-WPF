@@ -56,7 +56,8 @@ public class HealthFormCompleter : IFileImport, IListDataImport<HealthFormData>
             "/html/body/div[1]/div/div/div[2]/table/tbody/tr[1]/td[3]/div/div[2]/div/div[1]/div[2]/div[1]/div/div/div/div[2]/div/div/div/div/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div/div[1]/div/table/tbody/tr/td[1]/table/tbody/tr/td[5]/table/tbody/tr[2]/td[2]/em/button",
             "/html/body/div[2]/div/div/div[2]/table/tbody/tr[1]/td[3]/div/div[2]/div/div/div[2]/div[1]/div/div/div/div[2]/div/div/div/div/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div/div[1]/div/table/tbody/tr/td[1]/table/tbody/tr/td[5]/table/tbody/tr[2]/td[2]/em/button"
         ]);
-        Browser.DoubleClickFirstByXpath("/html/body/div[1]/div/div/div[2]/table/tbody/tr[1]/td[3]/div/div[2]/div/div/div[2]/div[1]/div/div/div/div[2]/div/div/div/div/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div/div[2]/div/div[1]/div[2]/div/div");
+        Browser.DoubleClickFirstByXpath(
+            "/html/body/div[1]/div/div/div[2]/table/tbody/tr[1]/td[3]/div/div[2]/div/div/div[2]/div[1]/div/div/div/div[2]/div/div/div/div/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div/div[2]/div/div[1]/div[2]/div/div");
         Thread.Sleep(1500);
         // Thread.Sleep(500);
         // Browser.ClickByXpath("//button[text()='新建(F1)']");
@@ -70,6 +71,11 @@ public class HealthFormCompleter : IFileImport, IListDataImport<HealthFormData>
         // Thread.Sleep(800);
         // Browser.ClearByName("checkDate");
         // Browser.SendKeysByName("checkDate", healthFormData.Date);
+        Browser
+            .WebDriver()
+            .FindElement(By.XPath($"//div[.//td[contains(text(), '{healthFormData.Date}')]]"))
+            .Click();
+        Thread.Sleep(1500);
         if (healthFormData.IsElder())
         {
             SelectOptionWhenNoSelected("checkWay", "2");
