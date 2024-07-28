@@ -1,5 +1,4 @@
-﻿using AutoImport_WPF.import;
-using AutoImport_WPF.import.impl;
+﻿using AutoImport_WPF.import.impl;
 
 namespace AutoImport_WPF.service.impl;
 
@@ -11,6 +10,12 @@ public class ImportService : IImportService
         importer.Import(fileName);
     }
 
+    public void CompleteHealthForm(string fileName)
+    {
+        var importer = new HealthFormCompleter();
+        importer.Import(fileName);
+    }
+
     public void ImportContract(string fileName)
     {
         var importer = new ContractImporter();
@@ -18,7 +23,7 @@ public class ImportService : IImportService
     }
 
     public void SaveContract(string fileName)
-    {   
+    {
         var importer = new ContractSaver();
         importer.Import(fileName);
     }

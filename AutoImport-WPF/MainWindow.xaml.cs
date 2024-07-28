@@ -190,8 +190,17 @@ public partial class MainWindow
         Logger.Info("导入签约服务数据结束");
     }
 
-    private void CompleteHealthFormButton_OnClick(object sender, RoutedEventArgs e)
+    private async void CompleteHealthFormButton_OnClick(object sender, RoutedEventArgs e)
     {
-        throw new NotImplementedException();
+        var beforeHandler = BeforeHandleImportButtonClick();
+        if (beforeHandler != null)
+        {
+            beforeHandler();
+            return;
+        }
+
+        Logger.Info("开始完善体检表");
+        await Task.Run(() => ImportServiceProvider.GetImportService().SaveContract(ApplicationContext.FileName));
+        Logger.Info("完善体检表结束");
     }
 }

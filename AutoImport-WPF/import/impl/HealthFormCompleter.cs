@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using AutoImport_WPF.browser;
+﻿using AutoImport_WPF.browser;
 using AutoImport_WPF.config;
 using AutoImport_WPF.context;
 using AutoImport_WPF.domain;
@@ -9,7 +8,7 @@ using OpenQA.Selenium;
 
 namespace AutoImport_WPF.import.impl;
 
-public class HealthFormImporter : IFileImport, IListDataImport<HealthFormData>
+public class HealthFormCompleter : IFileImport, IListDataImport<HealthFormData>
 {
     private static ILogger Logger => LogConfig.Logger;
 
@@ -47,30 +46,30 @@ public class HealthFormImporter : IFileImport, IListDataImport<HealthFormData>
 
     private static void Import(HealthFormData healthFormData)
     {
-        // const string idCardName = "idCard";
+        const string idCardName = "idCard";
+        Thread.Sleep(500);
+        Browser.ClearByName(idCardName);
+        Browser.SendKeysByName(idCardName, healthFormData.Id);
+        Browser.ClickByPossibleXpathList
+        ([
+            "/html/body/div[1]/div/div/div[2]/table/tbody/tr[1]/td[3]/div/div[2]/div/div/div[2]/div[1]/div/div/div/div[2]/div/div/div/div/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div/div[1]/div/table/tbody/tr/td[1]/table/tbody/tr/td[5]/table/tbody/tr[2]/td[2]/em/button",
+            "/html/body/div[1]/div/div/div[2]/table/tbody/tr[1]/td[3]/div/div[2]/div/div[1]/div[2]/div[1]/div/div/div/div[2]/div/div/div/div/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div/div[1]/div/table/tbody/tr/td[1]/table/tbody/tr/td[5]/table/tbody/tr[2]/td[2]/em/button",
+            "/html/body/div[2]/div/div/div[2]/table/tbody/tr[1]/td[3]/div/div[2]/div/div/div[2]/div[1]/div/div/div/div[2]/div/div/div/div/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div/div[1]/div/table/tbody/tr/td[1]/table/tbody/tr/td[5]/table/tbody/tr[2]/td[2]/em/button"
+        ]);
+        Browser.DoubleClickFirstByXpath("/html/body/div[1]/div/div/div[2]/table/tbody/tr[1]/td[3]/div/div[2]/div/div/div[2]/div[1]/div/div/div/div[2]/div/div/div/div/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div/div[2]/div/div[1]/div[2]/div/div");
+        Thread.Sleep(1500);
         // Thread.Sleep(500);
-        // Browser.ClearByName(idCardName);
-        // Browser.SendKeysByName(idCardName, healthFormData.Id);
-        // Browser.ClickByPossibleXpathList
-        // ([
-        //     "/html/body/div[1]/div/div/div[2]/table/tbody/tr[1]/td[3]/div/div[2]/div/div/div[2]/div[1]/div/div/div/div[2]/div/div/div/div/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div/div[1]/div/table/tbody/tr/td[1]/table/tbody/tr/td[5]/table/tbody/tr[2]/td[2]/em/button",
-        //     "/html/body/div[1]/div/div/div[2]/table/tbody/tr[1]/td[3]/div/div[2]/div/div[1]/div[2]/div[1]/div/div/div/div[2]/div/div/div/div/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div/div[1]/div/table/tbody/tr/td[1]/table/tbody/tr/td[5]/table/tbody/tr[2]/td[2]/em/button",
-        //     "/html/body/div[2]/div/div/div[2]/table/tbody/tr[1]/td[3]/div/div[2]/div/div/div[2]/div[1]/div/div/div/div[2]/div/div/div/div/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div/div[1]/div/table/tbody/tr/td[1]/table/tbody/tr/td[5]/table/tbody/tr[2]/td[2]/em/button"
-        // ]);
-        // Browser.DoubleClickFirstByXpath("/html/body/div[1]/div/div/div[2]/table/tbody/tr[1]/td[3]/div/div[2]/div/div/div[2]/div[1]/div/div/div/div[2]/div/div/div/div/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div/div[2]/div/div[1]/div[2]/div/div");
-        // Thread.Sleep(1500);
-        Thread.Sleep(500);
-        Browser.ClickByXpath("//button[text()='新建(F1)']");
-        Thread.Sleep(500);
-        Browser.SendKeys(
-            By.XPath(
-                "/html/body/div[11]/div[2]/div[1]/div/div/div/div/div[2]/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div/form/table/tbody/tr[3]/td[2]/div/div[1]/input"),
-            healthFormData.Id);
-        Thread.Sleep(800);
-        Browser.ClickByXpath("//button[text()='确定']");
-        Thread.Sleep(800);
-        Browser.ClearByName("checkDate");
-        Browser.SendKeysByName("checkDate", healthFormData.Date);
+        // Browser.ClickByXpath("//button[text()='新建(F1)']");
+        // Thread.Sleep(500);
+        // Browser.SendKeys(
+        //     By.XPath(
+        //         "/html/body/div[11]/div[2]/div[1]/div/div/div/div/div[2]/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div/form/table/tbody/tr[3]/td[2]/div/div[1]/input"),
+        //     healthFormData.Id);
+        // Thread.Sleep(800);
+        // Browser.ClickByXpath("//button[text()='确定']");
+        // Thread.Sleep(800);
+        // Browser.ClearByName("checkDate");
+        // Browser.SendKeysByName("checkDate", healthFormData.Date);
         if (healthFormData.IsElder())
         {
             SelectOptionWhenNoSelected("checkWay", "2");
