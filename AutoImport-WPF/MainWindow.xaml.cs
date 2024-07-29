@@ -200,7 +200,7 @@ public partial class MainWindow
         }
 
         Logger.Info("开始完善体检表");
-        await Task.Run(() => ImportServiceProvider.GetImportService().SaveContract(ApplicationContext.FileName));
+        await Task.Run(() => ImportServiceProvider.GetImportService().CompleteHealthForm(ApplicationContext.FileName));
         Logger.Info("完善体检表结束");
     }
 }

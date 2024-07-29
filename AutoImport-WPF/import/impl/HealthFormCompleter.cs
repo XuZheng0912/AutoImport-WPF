@@ -1,4 +1,5 @@
-﻿using AutoImport_WPF.browser;
+﻿using AngleSharp.Common;
+using AutoImport_WPF.browser;
 using AutoImport_WPF.config;
 using AutoImport_WPF.context;
 using AutoImport_WPF.domain;
@@ -58,7 +59,7 @@ public class HealthFormCompleter : IFileImport, IListDataImport<HealthFormData>
         ]);
         Browser.DoubleClickFirstByXpath(
             "/html/body/div[1]/div/div/div[2]/table/tbody/tr[1]/td[3]/div/div[2]/div/div/div[2]/div[1]/div/div/div/div[2]/div/div/div/div/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div/div[2]/div/div[1]/div[2]/div/div");
-        Thread.Sleep(1500);
+        Thread.Sleep(2000);
         // Thread.Sleep(500);
         // Browser.ClickByXpath("//button[text()='新建(F1)']");
         // Thread.Sleep(500);
@@ -71,10 +72,18 @@ public class HealthFormCompleter : IFileImport, IListDataImport<HealthFormData>
         // Thread.Sleep(800);
         // Browser.ClearByName("checkDate");
         // Browser.SendKeysByName("checkDate", healthFormData.Date);
-        Browser
-            .WebDriver()
-            .FindElement(By.XPath($"//div[.//td[contains(text(), '{healthFormData.Date}')]]"))
-            .Click();
+
+        var forms = Browser.WebDriver().FindElements(By.XPath("//div[@class='x-grid3-cell-inner x-grid3-col-0']"));
+
+        var targetFrom = forms.FirstOrDefault(form => form.Text.Equals(healthFormData.Date));
+        if (targetFrom == null)
+        {
+            Logger.Info($"{healthFormData.Id}-{healthFormData.Name}: 未找到{healthFormData.Date}日期的体检表");
+            return;
+        }
+
+        targetFrom.Click();
+
         Thread.Sleep(1500);
         if (healthFormData.IsElder())
         {
