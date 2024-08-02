@@ -29,7 +29,7 @@ public partial class MainWindow
 
     private void InitializeLogWindow()
     {
-        var logWindow = new LogWindow();
+        var logWindow = LogWindow.Init();
         logWindow.Show();
         LogConfig.Logger = new CommonLogger(content => Dispatcher.Invoke(() => logWindow.AddListItem(content)));
     }

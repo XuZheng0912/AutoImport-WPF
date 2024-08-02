@@ -6,10 +6,15 @@ public partial class LogWindow
 {
     private ObservableCollection<string> Logs { get; } = [];
 
-    public LogWindow()
+    private LogWindow()
     {
         InitializeComponent();
         LogListBox.ItemsSource = Logs;
+    }
+
+    public static LogWindow Init()
+    {
+        return new LogWindow();
     }
 
     public void AddListItem(string content)

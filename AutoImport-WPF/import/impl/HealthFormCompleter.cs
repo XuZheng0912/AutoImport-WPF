@@ -1,5 +1,4 @@
-﻿using AngleSharp.Common;
-using AutoImport_WPF.browser;
+﻿using AutoImport_WPF.browser;
 using AutoImport_WPF.config;
 using AutoImport_WPF.context;
 using AutoImport_WPF.domain;

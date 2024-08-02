@@ -119,7 +119,6 @@ public class HealthFormData(ExcelRow row) : ExcelRowData(row)
 
     private string SuggestedReview => base[45];
 
-
     private string SuggestedReferral => base[46];
 
     private string QuitSmoking => base[47];
