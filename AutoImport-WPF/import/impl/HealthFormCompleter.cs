@@ -8,7 +8,7 @@ using OpenQA.Selenium;
 
 namespace AutoImport_WPF.import.impl;
 
-public class HealthFormCompleter : IFileImport, IListDataImport<HealthFormData>
+public class HealthFormCompleter : IFileImport, IListDataImport<IHealthForm>
 {
     private static ILogger Logger => LogConfig.Logger;
 
@@ -21,7 +21,7 @@ public class HealthFormCompleter : IFileImport, IListDataImport<HealthFormData>
         Import(healthFormDataList);
     }
 
-    public void Import(List<HealthFormData> dataList)
+    public void Import(List<IHealthForm> dataList)
     {
         ReadyForImport();
         foreach (var healthFormData in dataList)
@@ -44,7 +44,7 @@ public class HealthFormCompleter : IFileImport, IListDataImport<HealthFormData>
         // }
     }
 
-    private static void Import(HealthFormData healthFormData)
+    private static void Import(IHealthForm healthFormData)
     {
         const string idCardName = "idCard";
         Thread.Sleep(500);
@@ -59,66 +59,52 @@ public class HealthFormCompleter : IFileImport, IListDataImport<HealthFormData>
         Browser.DoubleClickFirstByXpath(
             "/html/body/div[1]/div/div/div[2]/table/tbody/tr[1]/td[3]/div/div[2]/div/div/div[2]/div[1]/div/div/div/div[2]/div/div/div/div/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div/div[2]/div/div[1]/div[2]/div/div");
         Thread.Sleep(2000);
-        // Thread.Sleep(500);
-        // Browser.ClickByXpath("//button[text()='新建(F1)']");
-        // Thread.Sleep(500);
-        // Browser.SendKeys(
-        //     By.XPath(
-        //         "/html/body/div[11]/div[2]/div[1]/div/div/div/div/div[2]/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div/form/table/tbody/tr[3]/td[2]/div/div[1]/input"),
-        //     healthFormData.Id);
-        // Thread.Sleep(800);
-        // Browser.ClickByXpath("//button[text()='确定']");
-        // Thread.Sleep(800);
-        // Browser.ClearByName("checkDate");
-        // Browser.SendKeysByName("checkDate", healthFormData.Date);
 
         var forms = Browser.WebDriver().FindElements(By.XPath("//div[@class='x-grid3-cell-inner x-grid3-col-0']"));
 
-        var targetFrom = forms.FirstOrDefault(form => form.Text.Equals(healthFormData.Date));
+        var targetFrom = forms.FirstOrDefault(form => form.Text.Equals(healthFormData.CheckDate));
         if (targetFrom == null)
         {
-            Logger.Info($"{healthFormData.Id}-{healthFormData.Name}: 未找到{healthFormData.Date}日期的体检表");
+            Logger.Info($"{healthFormData.Id}-{healthFormData.Name}: 未找到{healthFormData.CheckDate}日期的体检表");
             return;
         }
 
         targetFrom.Click();
 
         Thread.Sleep(1500);
-        if (healthFormData.IsElder())
+        if (healthFormData.IsElder)
         {
             SelectOptionWhenNoSelected("checkWay", "2");
         }
 
-        if (healthFormData.IsHypertension())
+        if (healthFormData.IsHypertension)
         {
             SelectOptionWhenNoSelected("checkWay", "3");
         }
 
-        if (healthFormData.IsDiabetes())
+        if (healthFormData.IsDiabetes)
         {
             SelectOptionWhenNoSelected("checkWay", "4");
         }
 
         SelectOptionWhenNoSelected("symptom", "01");
         SendKeysWhenInputEmpty("temperature", healthFormData.Temperature);
-        SendKeysWhenInputEmpty("pulse", healthFormData.HeartRate);
+        SendKeysWhenValueNotEmpty("pulse", healthFormData.HeartRate);
         SendKeysWhenInputEmpty("breathe", healthFormData.BreathRate);
         SendKeysWhenValueNotEmpty("constriction", healthFormData.RightConstriction);
         SendKeysWhenValueNotEmpty("diastolic", healthFormData.RightDiastolic);
         SendKeysWhenValueNotEmpty("constriction_L", healthFormData.LeftConstriction);
         SendKeysWhenValueNotEmpty("diastolic_L", healthFormData.LeftDiastolic);
-        SendKeysWhenInputEmpty("height", healthFormData.Height);
-        SendKeysWhenInputEmpty("weight", healthFormData.Weight);
-        SendKeysWhenInputEmpty("waistline", healthFormData.Waistline);
+        SendKeysWhenValueNotEmpty("height", healthFormData.Height);
+        SendKeysWhenValueNotEmpty("weight", healthFormData.Weight);
+        SendKeysWhenValueNotEmpty("waistline", healthFormData.Waistline);
 
-        if (healthFormData.IsElder())
+        if (healthFormData.IsElder)
         {
             SelectOptionWhenAllNoSelected("healthStatus", "1");
             SelectOptionWhenAllNoSelected("selfCare", "1");
         }
 
-        // SelectOptionWhenAllNoSelected("cognitive", "1");
-        // SelectOptionWhenAllNoSelected("emotion", "1");
 
         SelectOptionWhenAllNoSelected("physicalExerciseFrequency", "4");
         SelectOptionWhenAllNoSelected("dietaryHabit", "1");
@@ -153,42 +139,63 @@ public class HealthFormCompleter : IFileImport, IListDataImport<HealthFormData>
         SelectOptionWhenAllNoSelected("dullness", "1");
         SelectOptionWhenAllNoSelected("edema", "1");
 
-        if (healthFormData.IsDiabetes())
+        if (healthFormData.IsDiabetes)
         {
             SelectOptionWhenNoSelected("footPulse", "2");
         }
 
+        SendKeysWhenValueNotEmpty("hgb", healthFormData.Hemoglobin);
+        SendKeysWhenValueNotEmpty("wbc", healthFormData.WhiteBloodCell);
+        SendKeysWhenValueNotEmpty("platelet", healthFormData.Platelet);
+        SendKeysWhenInputEmpty("proteinuria", "(-)");
+        SendKeysWhenInputEmpty("glu", "(-)");
+        SendKeysWhenInputEmpty("dka", "(-)");
+        SendKeysWhenInputEmpty("oc", "(-)");
+        SendKeysWhenInputEmpty("leu", "(-)");
+
         SendKeysWhenInputEmpty("fbs", healthFormData.FastingBloodGlucose);
 
-        // if (healthFormData.IsEcgNormal())
-        // {
-        //     SelectOptionWhenNoSelected("ecg", "1");
-        // }
-        // else
-        // {
-        //     SelectOptionWhenNoSelected("ecg", "2");
-        //     SendKeysWhenValueNotEmpty("ecgText", healthFormData.EcgAbnormal);
-        // }
+        if (healthFormData.IsEcgNormal)
+        {
+            SelectOptionWhenNoSelected("ecg", "1");
+        }
+        else
+        {
+            SelectOptionWhenNoSelected("ecg", "2");
+            SendKeysWhenValueNotEmpty("ecgText", healthFormData.EcgText);
+        }
 
-        // if (healthFormData.IsChestXrayNormal())
-        // {
-        //     SelectOptionWhenNoSelected("x", "1");
-        // }
-        // else
-        // {
-        //     SelectOptionWhenNoSelected("x", "2");
-        //     SendKeysWhenValueNotEmpty("xText", healthFormData.ChestXrayAbnormal);
-        // }
-        //
-        // if (healthFormData.IsBUltrasonicNormal())
-        // {
-        //     SelectOptionWhenNoSelected("b", "1");
-        // }
-        // else
-        // {
-        //     SelectOptionWhenNoSelected("b", "2");
-        //     SendKeysWhenValueNotEmpty("bText", healthFormData.BUltrasonicAbnormal);
-        // }
+        SendKeysWhenValueNotEmpty("alt", healthFormData.SerumAlanineAminotransferase);
+        SendKeysWhenValueNotEmpty("ast", healthFormData.SerumGlutamicOxalaceticTransaminase);
+        SendKeysWhenValueNotEmpty("tbil", healthFormData.TotalBilirubin);
+        SendKeysWhenValueNotEmpty("cr", healthFormData.SerumCreatinine);
+        SendKeysWhenValueNotEmpty("bun", healthFormData.BloodUreaNitrogen);
+        SendKeysWhenValueNotEmpty("tc", healthFormData.TotalCholesterol);
+        SendKeysWhenValueNotEmpty("tg", healthFormData.Triglyceride);
+        SendKeysWhenValueNotEmpty("ldl", healthFormData.SerumLowDensityLipoproteinCholesterol);
+        SendKeysWhenValueNotEmpty("hdl", healthFormData.SerumHighDensityLipoproteinCholesterol);
+
+
+        if (healthFormData.IsChestXrayNormal)
+        {
+            SelectOptionWhenNoSelected("x", "1");
+        }
+        else
+        {
+            SelectOptionWhenNoSelected("x", "2");
+            SendKeysWhenValueNotEmpty("xText", healthFormData.Xtext);
+        }
+
+
+        if (healthFormData.IsBUltrasonicNormal)
+        {
+            SelectOptionWhenNoSelected("b", "1");
+        }
+        else
+        {
+            SelectOptionWhenNoSelected("b", "2");
+            SendKeysWhenValueNotEmpty("bText", healthFormData.BText);
+        }
 
         SelectOptionWhenAllNoSelected("cerebrovascularDiseases", "1");
         SelectOptionWhenAllNoSelected("kidneyDiseases", "1");
@@ -197,8 +204,7 @@ public class HealthFormCompleter : IFileImport, IListDataImport<HealthFormData>
         SelectOptionWhenAllNoSelected("eyeDiseases", "1");
         SelectOptionWhenAllNoSelected("neurologicalDiseases", "1");
 
-
-        if (healthFormData.IsDiabetes() || healthFormData.IsHypertension())
+        if (healthFormData.IsDiabetes || healthFormData.IsHypertension)
         {
             SelectOptionWhenNoSelected("otherDiseasesone", "2");
             SendKeysWhenValueNotEmpty("otherDiseasesoneDesc", healthFormData.OtherSystemDisease);
@@ -256,66 +262,67 @@ public class HealthFormCompleter : IFileImport, IListDataImport<HealthFormData>
 
         SelectOptionWhenNoSelected("nonimmuneFlag", "n");
 
-        if (healthFormData.HasAbnormal())
+        if (healthFormData.HasAbnormal)
         {
             SelectOptionWhenNoSelected("abnormality", "2");
             SendKeysWhenValueNotEmpty("abnormality1", healthFormData.Abnormality1);
-            // SendKeysWhenValueNotEmpty("abnormality2", healthFormData.Abnormality2);
-            // SendKeysWhenValueNotEmpty("abnormality3", healthFormData.Abnormality3);
+            SendKeysWhenValueNotEmpty("abnormality2", healthFormData.Abnormality2);
+            SendKeysWhenValueNotEmpty("abnormality3", healthFormData.Abnormality3);
+            SendKeysWhenValueNotEmpty("abnormality3", healthFormData.Abnormality4);
         }
         else
         {
             SelectOptionWhenNoSelected("abnormality", "1");
         }
 
-        if (healthFormData.IsPutIntoAdministration())
+        if (healthFormData.IsPutIntoAdministration)
         {
             SelectOptionWhenNoSelected("mana", "1");
         }
 
-        if (healthFormData.IsSuggestedReview())
+        if (healthFormData.IsSuggestedReview)
         {
             SelectOptionWhenNoSelected("mana", "2");
         }
 
-        if (healthFormData.IsSuggestReferral())
+        if (healthFormData.IsSuggestReferral)
         {
             SelectOptionWhenNoSelected("mana", "3");
         }
 
-        if (healthFormData.IsNeedQuitSmoking())
+        if (healthFormData.IsNeedQuitSmoking)
         {
             SelectOptionWhenNoSelected("riskfactorsControl", "1");
         }
 
-        if (healthFormData.IsNeedHealthDrinking())
+        if (healthFormData.IsNeedHealthDrinking)
         {
             SelectOptionWhenNoSelected("riskfactorsControl", "2");
         }
 
-        if (healthFormData.IsNeedDiet())
+        if (healthFormData.IsNeedDiet)
         {
             SelectOptionWhenNoSelected("riskfactorsControl", "3");
         }
 
-        if (healthFormData.IsNeedExercise())
+        if (healthFormData.IsNeedExercise)
         {
             SelectOptionWhenNoSelected("riskfactorsControl", "4");
         }
 
-        if (healthFormData.IsNeedLostWeight())
+        if (healthFormData.IsNeedLostWeight)
         {
             SelectOptionWhenNoSelected("riskfactorsControl", "5");
-            SendKeysWhenValueNotEmpty("targetWeight", healthFormData.TargetWeight.ToString("0.0"));
+            SendKeysWhenValueNotEmpty("targetWeight", healthFormData.TargetWeight);
         }
 
-        if (healthFormData.IsElder() || healthFormData.IsDiabetes())
+        if (healthFormData.IsElder || healthFormData.IsDiabetes)
         {
             SelectOptionWhenNoSelected("riskfactorsControl", "6");
             SendKeysWhenValueNotEmpty("vaccine", "流感，肺炎疫苗");
         }
 
-        if (healthFormData.HasOther())
+        if (healthFormData.HasOther)
         {
             SelectOptionWhenNoSelected("riskfactorsControl", "7");
             SendKeysWhenValueNotEmpty("pjOther", healthFormData.OtherSuggestion);
@@ -361,6 +368,7 @@ public class HealthFormCompleter : IFileImport, IListDataImport<HealthFormData>
     private static void SendKeysWhen(string elementName, string value, Func<bool> condition)
     {
         if (!condition()) return;
+        Browser.ClearByName(elementName);
         Browser.SendKeysByName(elementName, value);
     }
 
@@ -448,8 +456,8 @@ public class HealthFormCompleter : IFileImport, IListDataImport<HealthFormData>
         Browser.Click(By.Id("logon"));
     }
 
-    private static List<HealthFormData> ReadFromExcelFile(string fileName)
+    private static List<IHealthForm> ReadFromExcelFile(string fileName)
     {
-        return new HealthFormExcelReader().Read(fileName);
+        return CompleteHealthFormReader.NewInstance().Read(fileName);
     }
 }
