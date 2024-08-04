@@ -17,7 +17,8 @@ public class HealthFormCompleter : IFileImport, IListDataImport<IHealthForm>
     public void Import(string filename)
     {
         var excelDataList = ReadFromExcelFile(filename);
-        var healthFormDataList = excelDataList.GetRange(1, excelDataList.Count - 1);
+        const int start = 2;
+        var healthFormDataList = excelDataList.GetRange(start, excelDataList.Count - start);
         Import(healthFormDataList);
     }
 

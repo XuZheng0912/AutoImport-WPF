@@ -2,9 +2,9 @@
 
 public class HealthForm(ExcelRow row) : IHealthForm
 {
-    public string CheckDate => ToY_M_D(row[CellIndex(1)]);
+    public string CheckDate => ToY_M_D(row[0]);
 
-    public string Name => row[CellIndex(2)];
+    public string Name => row[1];
 
     public string Id => row[CellIndex(7)];
 
@@ -184,6 +184,6 @@ public class HealthForm(ExcelRow row) : IHealthForm
 
     private static int CellIndex(int cellNum)
     {
-        return cellNum - 1;
+        return cellNum - 2;
     }
 }
