@@ -68,11 +68,11 @@ public interface IHealthForm
 
     string SerumHighDensityLipoproteinCholesterol { get; }
 
-    bool IsChestXrayNormal { get; }
+    string ChestXray { get; }
 
     string Xtext { get; }
 
-    bool IsBUltrasonicNormal { get; }
+    string BUltrasonic { get; }
 
     string BText { get; }
 

@@ -177,27 +177,22 @@ public class HealthFormCompleter : IFileImport, IListDataImport<IHealthForm>
         SendKeysWhenValueNotEmpty("hdl", healthFormData.SerumHighDensityLipoproteinCholesterol);
 
 
-        if (healthFormData.IsChestXrayNormal)
+        Action chestAction = healthFormData.ChestXray switch
         {
-            SelectOptionWhenNoSelected("x", "1");
-        }
-        else
-        {
-            SelectOptionWhenNoSelected("x", "2");
-            // SendKeysWhenValueNotEmpty("xText", healthFormData.Xtext);
-        }
+            "正常" => () => SelectOptionWhenNoSelected("x", "1"),
+            "异常" => () => SelectOptionWhenNoSelected("x", "2"),
+            _ => () => { }
+        };
+        chestAction();
 
-
-        if (healthFormData.IsBUltrasonicNormal)
+        Action bAction = healthFormData.BUltrasonic switch
         {
-            SelectOptionWhenNoSelected("b", "1");
-        }
-        else
-        {
-            SelectOptionWhenNoSelected("b", "2");
-            // SendKeysWhenValueNotEmpty("bText", healthFormData.BText);
-        }
-
+            "正常" => () => SelectOptionWhenNoSelected("b", "1"),
+            "异常" => () => SelectOptionWhenNoSelected("b", "2"),
+            _ => () => { }
+        };
+        bAction();
+        
         SelectOptionWhenAllNoSelected("cerebrovascularDiseases", "1");
         SelectOptionWhenAllNoSelected("kidneyDiseases", "1");
         SelectOptionWhenAllNoSelected("heartDisease", "1");
