@@ -163,7 +163,7 @@ public class HealthFormCompleter : IFileImport, IListDataImport<IHealthForm>
         else
         {
             SelectOptionWhenNoSelected("ecg", "2");
-            SendKeysWhenValueNotEmpty("ecgText", healthFormData.EcgText);
+            // SendKeysWhenValueNotEmpty("ecgText", healthFormData.EcgText);
         }
 
         SendKeysWhenValueNotEmpty("alt", healthFormData.SerumAlanineAminotransferase);
@@ -184,7 +184,7 @@ public class HealthFormCompleter : IFileImport, IListDataImport<IHealthForm>
         else
         {
             SelectOptionWhenNoSelected("x", "2");
-            SendKeysWhenValueNotEmpty("xText", healthFormData.Xtext);
+            // SendKeysWhenValueNotEmpty("xText", healthFormData.Xtext);
         }
 
 
@@ -195,7 +195,7 @@ public class HealthFormCompleter : IFileImport, IListDataImport<IHealthForm>
         else
         {
             SelectOptionWhenNoSelected("b", "2");
-            SendKeysWhenValueNotEmpty("bText", healthFormData.BText);
+            // SendKeysWhenValueNotEmpty("bText", healthFormData.BText);
         }
 
         SelectOptionWhenAllNoSelected("cerebrovascularDiseases", "1");
@@ -317,10 +317,10 @@ public class HealthFormCompleter : IFileImport, IListDataImport<IHealthForm>
             SendKeysWhenValueNotEmpty("targetWeight", healthFormData.TargetWeight);
         }
 
-        if (healthFormData.IsElder || healthFormData.IsDiabetes)
+        if (healthFormData.IsSuggestVaccination)
         {
             SelectOptionWhenNoSelected("riskfactorsControl", "6");
-            SendKeysWhenValueNotEmpty("vaccine", "流感，肺炎疫苗");
+            SendKeysWhenValueNotEmpty("vaccine", healthFormData.Vaccination);
         }
 
         if (healthFormData.HasOther)

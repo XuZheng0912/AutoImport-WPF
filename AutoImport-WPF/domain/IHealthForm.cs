@@ -146,7 +146,11 @@ public interface IHealthForm
 
     string TargetWeight { get; }
 
+    bool IsSuggestVaccination { get; }
+
+    string Vaccination { get; }
+
     bool HasOther { get; }
-    
+
     string OtherSuggestion { get; }
 }

@@ -128,6 +128,10 @@ public class HealthForm(ExcelRow row) : IHealthForm
     public bool IsNeedExercise => !string.IsNullOrWhiteSpace(row[CellIndex(223)]);
     public bool IsNeedLostWeight => !string.IsNullOrWhiteSpace(row[CellIndex(224)]);
     public string TargetWeight => row[CellIndex(225)];
+
+    public bool IsSuggestVaccination => !string.IsNullOrWhiteSpace(row[CellIndex(226)]);
+    public string Vaccination => row[CellIndex(227)];
+
     public bool HasOther => !string.IsNullOrWhiteSpace(row[CellIndex(228)]);
     public string OtherSuggestion => row[CellIndex(229)];
 
