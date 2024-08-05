@@ -70,11 +70,11 @@ public class HealthForm(ExcelRow row) : IHealthForm
 
     public string SerumHighDensityLipoproteinCholesterol => row[CellIndex(72)];
 
-    public bool IsChestXrayNormal => row[CellIndex(75)].Trim().Equals("正常");
+    public bool IsChestXrayNormal => !row[CellIndex(75)].Trim().Equals("异常");
 
     public string Xtext => row[CellIndex(76)];
 
-    public bool IsBUltrasonicNormal => row[CellIndex(77)].Trim().Equals("正常");
+    public bool IsBUltrasonicNormal => !row[CellIndex(77)].Trim().Equals("异常");
 
     public string BText => row[CellIndex(78)];
 
