@@ -296,7 +296,7 @@ public class HealthFormImporter : IFileImport, IListDataImport<HealthFormData>
             SendKeysWhenValueNotEmpty("targetWeight", healthFormData.TargetWeight.ToString("0.0"));
         }
 
-        if (healthFormData.IsElder() || healthFormData.IsDiabetes())
+        if (healthFormData.IsElder() && healthFormData.IsDiabetes() && !healthFormData.IsHypertension())
         {
             SelectOptionWhenNoSelected("riskfactorsControl", "6");
             SendKeysWhenValueNotEmpty("vaccine", "流感，肺炎疫苗");
