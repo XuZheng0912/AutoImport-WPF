@@ -11,7 +11,7 @@ public class Browser(IWebDriver webDriver) : IBrowser
 {
     private static ILogger Logger => LogConfig.Logger;
 
-    private readonly WebDriverWait _wait = new(webDriver, TimeSpan.FromSeconds(3));
+    private readonly WebDriverWait _wait = new(webDriver, TimeSpan.FromSeconds(10));
 
     public IWebDriver WebDriver()
     {
