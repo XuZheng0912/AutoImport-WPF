@@ -214,8 +214,12 @@ public class HealthFormCompleter : IFileImport, IListDataImport<IHealthForm>
         Thread.Sleep(500);
         SelectOptionWhenAllNoSelected("inhospitalFlag", "n");
         SelectOptionWhenAllNoSelected("infamilybedFlag", "n");
-
-        SelectOptionWhenNoSelected("medicineFlag", "y");
+        var medicineFlag = healthFormData.MedicineUse1 switch
+        {
+            { } s when string.IsNullOrWhiteSpace(s) => "n",
+            _ => "y"
+        };
+        SelectOptionWhenNoSelected("medicineFlag", medicineFlag);
         // SendKeysWhenValueNotEmpty("medicine_1_FD6PV", healthFormData.Medicine1);
         SendKeysWhenValueNotEmpty("use_1", healthFormData.MedicineUse1);
         SendKeysWhenValueNotEmpty("eachDose_1", healthFormData.MedicineEachDose1);
