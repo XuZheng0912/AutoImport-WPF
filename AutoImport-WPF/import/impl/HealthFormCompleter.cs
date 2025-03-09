@@ -148,11 +148,11 @@ public class HealthFormCompleter : IFileImport, IListDataImport<IHealthForm>
         SendKeysWhenValueNotEmpty("hgb", healthFormData.Hemoglobin);
         SendKeysWhenValueNotEmpty("wbc", healthFormData.WhiteBloodCell);
         SendKeysWhenValueNotEmpty("platelet", healthFormData.Platelet);
-        SendKeysWhenInputEmpty("proteinuria", "(-)");
-        SendKeysWhenInputEmpty("glu", "(-)");
-        SendKeysWhenInputEmpty("dka", "(-)");
-        SendKeysWhenInputEmpty("oc", "(-)");
-        SendKeysWhenInputEmpty("leu", "(-)");
+        // SendKeysWhenInputEmpty("proteinuria", "(-)");
+        // SendKeysWhenInputEmpty("glu", "(-)");
+        // SendKeysWhenInputEmpty("dka", "(-)");
+        // SendKeysWhenInputEmpty("oc", "(-)");
+        // SendKeysWhenInputEmpty("leu", "(-)");
 
         SendKeysWhenInputEmpty("fbs", healthFormData.FastingBloodGlucose);
 
