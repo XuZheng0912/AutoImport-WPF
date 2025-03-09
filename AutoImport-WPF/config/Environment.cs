@@ -10,6 +10,8 @@ namespace AutoImport_WPF.config;
 public static class Environment
 {
     private static ILogger Logger => LogConfig.Logger;
+
+    private static readonly string FirefoxDriverPath = "C:\\Users\\Administrator\\Desktop\\geckodriver.exe";
     
     public static bool Init()
     {
@@ -19,9 +21,7 @@ public static class Environment
 
     public static bool InitFireFox()
     {
-        var driverPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "geckodriver.exe");
-
-        return File.Exists(driverPath);
+        return File.Exists(FirefoxDriverPath);
     }
     
     private static void FindBrowser()
