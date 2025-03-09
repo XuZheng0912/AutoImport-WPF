@@ -1,5 +1,4 @@
-﻿using System.IO;
-using System.Net.Http;
+﻿using System.Net.Http;
 using AutoImport_WPF.log;
 using Microsoft.Win32;
 using WebDriverManager;
@@ -11,19 +10,12 @@ public static class Environment
 {
     private static ILogger Logger => LogConfig.Logger;
 
-    private static readonly string FirefoxDriverPath = "C:\\Users\\Administrator\\Desktop\\geckodriver.exe";
-    
     public static bool Init()
     {
         FindBrowser();
         return InitWebDriver() && TestNetwork();
     }
 
-    public static bool InitFireFox()
-    {
-        return File.Exists(FirefoxDriverPath);
-    }
-    
     private static void FindBrowser()
     {
         string[] browserKeys =

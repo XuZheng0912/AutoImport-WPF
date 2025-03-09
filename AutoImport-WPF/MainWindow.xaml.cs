@@ -70,7 +70,7 @@ public partial class MainWindow
 
     private static void InitEnvironment()
     {
-        if (Environment.InitFireFox())
+        if (Environment.Init())
         {
             MessageBox.Show("程序配置环境初始化成功", "初始化", MessageBoxButton.OK, MessageBoxImage.Information);
         }
