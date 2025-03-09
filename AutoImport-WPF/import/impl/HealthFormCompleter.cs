@@ -192,7 +192,7 @@ public class HealthFormCompleter : IFileImport, IListDataImport<IHealthForm>
             _ => () => { }
         };
         bAction();
-        
+
         SelectOptionWhenAllNoSelected("cerebrovascularDiseases", "1");
         SelectOptionWhenAllNoSelected("kidneyDiseases", "1");
         SelectOptionWhenAllNoSelected("heartDisease", "1");
@@ -220,7 +220,10 @@ public class HealthFormCompleter : IFileImport, IListDataImport<IHealthForm>
             _ => "y"
         };
         SelectOptionWhenNoSelected("medicineFlag", medicineFlag);
-        // SendKeysWhenValueNotEmpty("medicine_1_FD6PV", healthFormData.Medicine1);
+
+        var medicineElementSuffix = GetMedicineElementSuffix();
+
+        SendKeysWhenValueNotEmpty($"medicine_1_{medicineElementSuffix}", healthFormData.Medicine1);
         SendKeysWhenValueNotEmpty("use_1", healthFormData.MedicineUse1);
         SendKeysWhenValueNotEmpty("eachDose_1", healthFormData.MedicineEachDose1);
         SendKeysWhenValueNotEmpty("useDate_1", healthFormData.MedicineUseDate1);
@@ -230,7 +233,7 @@ public class HealthFormCompleter : IFileImport, IListDataImport<IHealthForm>
             SelectOptionWhenNoSelected("medicineYield1", yieldOption1);
         }
 
-        // SendKeysWhenValueNotEmpty("medicine_2_FD6PV", healthFormData.Medicine2);
+        SendKeysWhenValueNotEmpty($"medicine2_{medicineElementSuffix}", healthFormData.Medicine2);
         SendKeysWhenValueNotEmpty("use_2", healthFormData.MedicineUse2);
         SendKeysWhenValueNotEmpty("eachDose_2", healthFormData.MedicineEachDose2);
         SendKeysWhenValueNotEmpty("useDate_2", healthFormData.MedicineUseDate2);
@@ -240,7 +243,7 @@ public class HealthFormCompleter : IFileImport, IListDataImport<IHealthForm>
             SelectOptionWhenNoSelected("medicineYield2", yieldOption2);
         }
 
-        // SendKeysWhenValueNotEmpty("medicine_3_FD6PV", healthFormData.Medicine3);
+        SendKeysWhenValueNotEmpty($"medicine_3_{medicineElementSuffix}", healthFormData.Medicine3);
         SendKeysWhenValueNotEmpty("use_3", healthFormData.MedicineUse3);
         SendKeysWhenValueNotEmpty("eachDose_3", healthFormData.MedicineEachDose3);
         SendKeysWhenValueNotEmpty("useDate_3", healthFormData.MedicineUseDate3);
@@ -250,7 +253,7 @@ public class HealthFormCompleter : IFileImport, IListDataImport<IHealthForm>
             SelectOptionWhenNoSelected("medicineYield3", yieldOption3);
         }
 
-        // SendKeysWhenValueNotEmpty("medicine_4_FD6PV", healthFormData.Medicine4);
+        SendKeysWhenValueNotEmpty($"medicine_4_{medicineElementSuffix}", healthFormData.Medicine4);
         SendKeysWhenValueNotEmpty("use_4", healthFormData.MedicineUse4);
         SendKeysWhenValueNotEmpty("eachDose_4", healthFormData.MedicineEachDose4);
         SendKeysWhenValueNotEmpty("useDate_4", healthFormData.MedicineUseDate4);
@@ -333,6 +336,15 @@ public class HealthFormCompleter : IFileImport, IListDataImport<IHealthForm>
         Browser.ClickById("CLOSE");
     }
 
+
+    private static string GetMedicineElementSuffix()
+    {
+        const string prefix = "medicine_1_";
+        var element = Browser.WebDriver()
+            .FindElements(By.XPath($"//*[contains(@name, '{prefix}')]"))
+            .First();
+        return element.GetAttribute("name")[prefix.Length..];
+    }
 
     private static string OptionOfMedicineYield(string medicineYield)
     {
